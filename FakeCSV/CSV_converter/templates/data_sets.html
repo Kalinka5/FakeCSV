@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row justify-content-start">
+        <div class="col-4">
+            <h4>Sample schema</h4>
+        </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-link">Edit schema</button>
+        </div>
+    </div>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Column name</th>
+            <th scope="col">Column type</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for column in columns %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ column.name }}</td>
+            <td>{{ column.type }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-between mb-4">
+          <div class="col p-0">
+            <h4>Data sets</h4>
+          </div>
+          <div class="col">
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                  <label for="rows" class="col-form-label">Rows:</label>
+                </div>
+                <div class="col-auto">
+                  <input type="text" id="rows" class="form-control">
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-success">Generate data</button>
+                </div>
+            </div>
+          </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Created</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Date</td>
+            <td>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Disabled tooltip">
+                    <button class="btn btn-success" type="button" disabled>Success</button>
+                </span>
+            </td>
+            <td><button type="button" class="btn btn-link">Download</button></td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Date</td>
+            <td>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Disabled tooltip">
+                    <button class="btn btn-success" type="button" disabled>Success</button>
+                </span></td>
+            <td><button type="button" class="btn btn-link">Download</button></td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Date</td>
+            <td>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Disabled tooltip">
+                    <button class="btn btn-secondary" type="button" disabled>Processing</button>
+                </span></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h4>Data schemas</h4>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary" href="{% url 'new_schema' %}" role="button">New schema</a>
+    </div>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Modified</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for schema in schemas %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ schema.name }}</td>
+            <td>{{ schema.modified }}</td>
+            <td>{{ schema.actions }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
