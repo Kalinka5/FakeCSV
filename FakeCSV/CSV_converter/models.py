@@ -26,8 +26,6 @@ class Column(models.Model):
         max_length=255,
         choices=TYPE_CHOICES
     )
-    from_field = models.IntegerField(default=0)
-    to_field = models.IntegerField(default=0)
     order = models.CharField(max_length=255)
     schema = models.ForeignKey(
         Schema,
@@ -36,3 +34,7 @@ class Column(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+class IntegerColumn(Column):
+    range_low = models.IntegerField(blank=True, null=True, default=0)
+    range_high = models.IntegerField(blank=True, null=True, default=100)

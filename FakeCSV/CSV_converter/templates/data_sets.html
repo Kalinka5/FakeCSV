@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<form method="post">
+    {% csrf_token %}
     <div class="row justify-content-start">
         <div class="col-4">
             <h4>Sample schema</h4>
@@ -38,10 +40,10 @@
                   <label for="rows" class="col-form-label">Rows:</label>
                 </div>
                 <div class="col-auto">
-                  <input type="text" id="rows" class="form-control">
+                  <input type="text" id="rows" name="rows" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-success">Generate data</button>
+                    <button type="submit" class="btn btn-success">Generate data</button>
                 </div>
             </div>
           </div>
@@ -86,5 +88,5 @@
         </tr>
         </tbody>
     </table>
-    
+</form>
 {% endblock %}
