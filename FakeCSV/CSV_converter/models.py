@@ -15,7 +15,6 @@ class Schema(models.Model):
     column_separator = models.CharField(max_length=255)
     string_character = models.CharField(max_length=255)
     modified = models.DateField()
-    actions = models.CharField(max_length=255, default="Edit scheme")
 
     def __str__(self):
         return self.name
@@ -27,17 +26,12 @@ class Column(models.Model):
         max_length=255,
         choices=TYPE_CHOICES
     )
-    if type == "Integer":
-        from_field = models.IntegerField()
-        to_field = models.IntegerField()
-
+    from_field = models.IntegerField(default=0)
+    to_field = models.IntegerField(default=0)
     order = models.CharField(max_length=255)
-    delete = models.CharField(max_length=255, default="delete")
-
     schema = models.ForeignKey(
         Schema,
-        on_delete=models.CASCADE,
-        null=True
+        on_delete=models.CASCADE
     )
 
     def __str__(self) -> str:

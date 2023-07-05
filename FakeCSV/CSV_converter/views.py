@@ -32,20 +32,19 @@ def new_schema(request):
             )
             schema.save()
 
-            column_name = request.POST.get("column_name")
-            column_type = request.POST.get("type")
-            column_order = request.POST.get("order")
-            column = Column(
-                name=column_name,
-                type=column_type,
-                order=column_order,
-                schema=schema
-            )
-            column.save()
+            column_name_list = request.POST.getlist("column_name")
+            column_type_list = request.POST.getlist("type")
+            column_order_list = request.POST.getlist("order")
+            for column_name, column_type, column_order in zip(column_name_list, column_type_list, column_order_list):
+                column = Column(
+                    name=column_name,
+                    type=column_type,
+                    order=column_order,
+                    schema=schema
+                )
+                column.save()
+                
             return redirect("/data-sets")
-        
-        else:
-            pass
 
     return render(request, "new_schema.html")
 
