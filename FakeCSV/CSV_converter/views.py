@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from django.conf import settings
+from django.core import serializers
+from django.views import View
 
 from faker import Faker
 
 import os
-from datetime import date
+from datetime import date, datetime
 import random
 import csv
 
-from .models import Schema, Column, IntegerColumn
+from CSV_converter.forms import FileForm
+from .models import Schema, Column, IntegerColumn, File
 
 
 def get_email(faker):
@@ -87,31 +91,58 @@ def new_schema(request):
                         schema=schema
                     )
                 
-            return redirect("/data-sets")
+            return redirect("/data-sets/")
 
     return render(request, "new_schema.html")
 
 
-@login_required
-def data_sets(request):
+class DataSetsView(View):
+    template_name = "data_sets.html"
     fake = Faker()
 
-    schema = Schema.objects.last()
-    columns = schema.column_set.all()
-    columns_dict = {'columns': columns}
+    def get(self, *args, **kwargs):
+        schema = Schema.objects.last()
+        columns = schema.column_set.all()
+        files = schema.file_set.all()
 
-    if request.method == "POST":
-        
-        media_directory = "media"
-        if not os.path.exists(media_directory):
-            os.mkdir(media_directory)
+        return render(self.request, self.template_name, 
+            {"columns": columns, "files": files})
 
-        rows = int(request.POST.get("rows"))
-        column_names = columns.values_list('name', flat=True)
-        with open(f'{media_directory}/fake_data.csv', 'w') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(column_names)
-            for _ in range(1, rows):
-                writer.writerow(generate_fake_data(columns, fake))
+    def post(self, *args, **kwargs):
+        if self.request.method == "POST":
+            schema = Schema.objects.last()
+            schema_name = schema.name
 
-    return render(request, "data_sets.html", columns_dict)
+            n = 1
+            while True:
+                filename = f'{schema_name}{n}.csv'
+                if not File.objects.filter(name=filename).exists():
+                    file = File.objects.create(name=filename, schema=schema)
+                    break
+
+                n += 1
+                
+            file_path = os.path.join(settings.MEDIA_ROOT, filename)
+            rows = int(self.request.POST.get("rows"))
+
+            columns = schema.column_set.all()
+            # Set "flat=True" to flatten the resulting list of values into a one-dimensional list.
+            column_names = columns.values_list('name', flat=True)
+
+            with open(file_path, 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(column_names)
+                for _ in range(1, rows):
+                    writer.writerow(generate_fake_data(columns, self.fake))
+
+            # Prepare the data for the new file
+            new_file_data = {
+                'counter': file.id,
+                'date': file.date,
+                'status': 'Success',
+                'name': file.name,
+            }
+
+            return JsonResponse(new_file_data)
+
+        return JsonResponse({"error": ""}, status=400)

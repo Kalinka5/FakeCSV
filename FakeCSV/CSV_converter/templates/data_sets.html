@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
+  <form method="post">
     {% csrf_token %}
     <div class="row justify-content-start">
         <div class="col-4">
@@ -43,12 +43,12 @@
                   <input type="text" id="rows" name="rows" class="form-control">
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-success">Generate data</button>
+                    <button id="generate-data" type="submit" class="btn btn-success">Generate data</button>
                 </div>
             </div>
           </div>
     </div>
-    <table class="table table-bordered">
+    <table id="data-table" class="table table-bordered">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -57,36 +57,51 @@
             <th scope="col">Actions</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Date</td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Disabled tooltip">
-                    <button class="btn btn-success" type="button" disabled>Success</button>
-                </span>
-            </td>
-            <td><button type="button" class="btn btn-link">Download</button></td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Date</td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Disabled tooltip">
-                    <button class="btn btn-success" type="button" disabled>Success</button>
-                </span></td>
-            <td><button type="button" class="btn btn-link">Download</button></td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Date</td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-title="Disabled tooltip">
-                    <button class="btn btn-secondary" type="button" disabled>Processing</button>
-                </span></td>
-            <td></td>
-        </tr>
+        <tbody id="table-body">
+          {% for file in files %}
+          <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ file.date }}</td>
+              <td>Success</td>
+              <td><a href="/media/{{ file.name }}">Download</a></td>
+          </tr>
+          {% endfor %}
         </tbody>
     </table>
-</form>
+  </form>
+  <script>
+    $(document).ready(function() {
+      console.log('Document ready!');
+      $('form').on('submit', function(event) {
+        event.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "data_sets" %}',
+            data: formData,
+            success: function(response) {
+              console.log('Ajax request successful!');
+              console.log(response);
+                // Create a new row for the new file
+                var newRow = `
+                    <tr>
+                        <th scope="row">${response.counter}</th>
+                        <td>${response.date}</td>
+                        <td>${response.status}</td>
+                        <td><a href="/media/${response.name}">Download</a></td>
+                    </tr>
+                `;
+
+                // Append the new row to the table
+                $('#table-body').append(newRow);
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+});
+  </script>
 {% endblock %}

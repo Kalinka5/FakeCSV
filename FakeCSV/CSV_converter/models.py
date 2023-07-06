@@ -38,3 +38,14 @@ class Column(models.Model):
 class IntegerColumn(Column):
     range_low = models.IntegerField(blank=True, null=True, default=0)
     range_high = models.IntegerField(blank=True, null=True, default=100)
+
+class File(models.Model):
+    name = models.CharField(max_length=255)
+    date = models.DateField(auto_now=True)
+    schema = models.ForeignKey(
+        Schema,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self) -> str:
+        return self.name
