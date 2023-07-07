@@ -21,10 +21,32 @@
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ schema.name }}</td>
             <td>{{ schema.modified }}</td>
-            <td>{{ schema.actions }}</td>
+            <td>
+                <a href="{% url 'new_schema' %}">Edit schema</a>
+                <a href="#" class="btn btn-link text-danger" type="submit">Delete</a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
-    
+    <script>
+        // Assuming you're using jQuery for AJAX requests
+        $(document).ready(function() {
+            $(".delete-schema-btn").click(function() {
+                if (confirm("Are you sure you want to delete this schema?")) {
+                    $.ajax({
+                        url: "/data-schemas/",
+                        type: "POST",
+                        success: function() {
+                            // Remove the deleted schema row from the table
+                            $(this).closest("tr").remove();
+                        },
+                        error: function() {
+                            alert("An error occurred while deleting the schema.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -61,8 +61,8 @@
           {% for file in files %}
           <tr>
               <th scope="row">{{ forloop.counter }}</th>
-              <td>{{ file.date }}</td>
-              <td>Success</td>
+              <td>{{ file.date|date:"Y-m-d" }}</td>
+              <td class="status-cell">Ready</td>
               <td><a href="/media/{{ file.name }}">Download</a></td>
           </tr>
           {% endfor %}
@@ -71,37 +71,57 @@
   </form>
   <script>
     $(document).ready(function() {
-      console.log('Document ready!');
+
+      var rowCount = $('#table-body tr').length;
+
       $('form').on('submit', function(event) {
         event.preventDefault();
 
         var formData = $(this).serialize();
 
+        // Find the status and actions cells of the new row
+        var statusCell, createdCell, actionsCell;
+
         $.ajax({
             type: 'POST',
             url: '{% url "data_sets" %}',
             data: formData,
-            success: function(response) {
-              console.log('Ajax request successful!');
-              console.log(response);
-                // Create a new row for the new file
-                var newRow = `
-                    <tr>
-                        <th scope="row">${response.counter}</th>
-                        <td>${response.date}</td>
-                        <td>${response.status}</td>
-                        <td><a href="/media/${response.name}">Download</a></td>
-                    </tr>
-                `;
+            beforeSend: function(xhr) {
+              // Create a new row for the new file
+              var newRow = `
+              <tr>
+                <th scope="row">${rowCount + 1}</th>
+                <td class="created-cell"></td>
+                <td class="status-cell">Processing</td>
+                <td></td>
+              </tr>
+              `;
 
-                // Append the new row to the table
-                $('#table-body').append(newRow);
+              // Append the new row to the table
+              $('#table-body').append(newRow);
+
+              // Set the cells variables for further updates
+              statusCell = $('#table-body tr:last-child .status-cell');
+              createdCell = $('#table-body tr:last-child .created-cell');
+              actionsCell = $('#table-body tr:last-child td:last-child');
+            },
+            success: function(response) {
+              // Update the status and actions cells
+              createdCell.text(response.date);
+              statusCell.text('Ready');
+              actionsCell.html(`<a href="/media/${response.name}">Download</a>`);
             },
             error: function(xhr) {
-                console.log(xhr.responseText);
+              console.log(xhr.responseText);
+
+              // Update the status cell with an error message
+              createdCell.text('Error');
+              statusCell.text('Error').removeClass('status-cell').addClass('error-cell');
             }
         });
+
+        rowCount++;  // Increment the row count
+      });
     });
-});
   </script>
 {% endblock %}

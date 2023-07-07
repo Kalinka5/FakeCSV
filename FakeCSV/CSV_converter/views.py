@@ -2,17 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.conf import settings
-from django.core import serializers
 from django.views import View
 
 from faker import Faker
 
 import os
-from datetime import date, datetime
+from datetime import date
 import random
 import csv
 
-from CSV_converter.forms import FileForm
 from .models import Schema, Column, IntegerColumn, File
 
 
@@ -91,7 +89,7 @@ def new_schema(request):
                         schema=schema
                     )
                 
-            return redirect("/data-sets/")
+            return redirect("/data-sets")
 
     return render(request, "new_schema.html")
 
@@ -105,13 +103,14 @@ class DataSetsView(View):
         columns = schema.column_set.all()
         files = schema.file_set.all()
 
-        return render(self.request, self.template_name, 
-            {"columns": columns, "files": files})
+        return render(self.request, self.template_name, {"columns": columns, "files": files})
 
     def post(self, *args, **kwargs):
         if self.request.method == "POST":
             schema = Schema.objects.last()
             schema_name = schema.name
+            schema_delimeter = schema.column_separator
+            schema_character = schema.string_character
 
             n = 1
             while True:
@@ -130,16 +129,14 @@ class DataSetsView(View):
             column_names = columns.values_list('name', flat=True)
 
             with open(file_path, 'w', newline='') as csvfile:
-                writer = csv.writer(csvfile)
+                writer = csv.writer(csvfile, delimiter=schema_delimeter, quotechar=schema_character)
                 writer.writerow(column_names)
                 for _ in range(1, rows):
                     writer.writerow(generate_fake_data(columns, self.fake))
 
             # Prepare the data for the new file
             new_file_data = {
-                'counter': file.id,
                 'date': file.date,
-                'status': 'Success',
                 'name': file.name,
             }
 
