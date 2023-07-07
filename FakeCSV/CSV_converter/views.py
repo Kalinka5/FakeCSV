@@ -72,7 +72,8 @@ def new_schema(request):
             column_order_list = request.POST.getlist("order")
             integer_from_list = request.POST.getlist("from[]")
             integer_to_list = request.POST.getlist("to[]")
-            for column_name, column_type, column_order, integer_from, integer_to, in zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list):
+            zip_lists = zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list)
+            for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
                 if column_type == "4":
                     IntegerColumn.objects.create(
                         name=column_name,
