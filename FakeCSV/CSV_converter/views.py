@@ -54,6 +54,7 @@ def new_schema(request):
     if request.method == "POST":
 
         if request.POST["submit"] == "Submit":
+            
             schema_name = request.POST.get("schema_name")
             separator = request.POST.get("separator")
             character = request.POST.get("character")
@@ -124,7 +125,8 @@ class DataSetsView(View):
             file_path = os.path.join(settings.MEDIA_ROOT, filename)
             rows = int(self.request.POST.get("rows"))
 
-            columns = schema.column_set.all()
+            columns = schema.column_set.all().order_by('order')
+
             # Set "flat=True" to flatten the resulting list of values into a one-dimensional list.
             column_names = columns.values_list('name', flat=True)
 
@@ -134,7 +136,6 @@ class DataSetsView(View):
                 for _ in range(1, rows):
                     writer.writerow(generate_fake_data(columns, self.fake))
 
-            # Prepare the data for the new file
             new_file_data = {
                 'date': file.date,
                 'name': file.name,

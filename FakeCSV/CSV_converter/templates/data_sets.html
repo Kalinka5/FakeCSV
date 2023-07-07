@@ -62,7 +62,9 @@
           <tr>
               <th scope="row">{{ forloop.counter }}</th>
               <td>{{ file.date|date:"Y-m-d" }}</td>
-              <td class="status-cell">Ready</td>
+              <td class="status-cell" style="display:flex;">
+                <div style="background-color: #1a9f03; border-radius: 5px; padding: 5px; color: white;">Ready</div>
+              </td>
               <td><a href="/media/{{ file.name }}">Download</a></td>
           </tr>
           {% endfor %}
@@ -92,7 +94,9 @@
               <tr>
                 <th scope="row">${rowCount + 1}</th>
                 <td class="created-cell"></td>
-                <td class="status-cell">Processing</td>
+                <td class="status-cell" style="display:flex;">
+                  <div style="background-color: #6b6c6b; border-radius: 5px; padding: 5px; color: white;">Processing</div>
+                </td>
                 <td></td>
               </tr>
               `;
@@ -106,21 +110,19 @@
               actionsCell = $('#table-body tr:last-child td:last-child');
             },
             success: function(response) {
-              // Update the status and actions cells
               createdCell.text(response.date);
-              statusCell.text('Ready');
+              statusCell.html(`<div class="status-cell" style="background-color: #1a9f03; border-radius: 5px; padding: 5px; color: white;">Ready</div>`);
               actionsCell.html(`<a href="/media/${response.name}">Download</a>`);
             },
             error: function(xhr) {
               console.log(xhr.responseText);
 
-              // Update the status cell with an error message
               createdCell.text('Error');
               statusCell.text('Error').removeClass('status-cell').addClass('error-cell');
             }
         });
 
-        rowCount++;  // Increment the row count
+        rowCount++;
       });
     });
   </script>

@@ -10,6 +10,6 @@ body {
   vertical-align:middle;
 }
 form {
-  display:table;/* shrinks to fit content */
+  display:table;
   margin:auto;
 }
