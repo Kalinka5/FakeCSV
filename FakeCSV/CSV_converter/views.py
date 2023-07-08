@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.conf import settings
 from django.views import View
+from django.shortcuts import get_object_or_404
 
 from faker import Faker
 
@@ -43,6 +44,16 @@ def generate_fake_data(all_columns, faker):
 
 @login_required
 def data_schemas(request):
+
+    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+        schema_id = request.POST.get('schema_id')
+        try:
+            schema = Schema.objects.get(pk=schema_id)
+            schema.delete()
+            return JsonResponse({'success': True})
+        except Schema.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Schema not found.'})
+
     data_schemas = Schema.objects.all()
     data_schemas_dict = {'schemas': data_schemas}
     return render(request, "data_schemas.html", data_schemas_dict)
@@ -91,7 +102,7 @@ def new_schema(request):
                         schema=schema
                     )
                 
-            return redirect("/data-sets")
+            return redirect(f"/data-sets/{schema.name}/")
 
     return render(request, "new_schema.html")
 
@@ -101,11 +112,16 @@ class DataSetsView(View):
     fake = Faker()
 
     def get(self, *args, **kwargs):
-        schema = Schema.objects.last()
-        columns = schema.column_set.all()
-        files = schema.file_set.all()
+        name = kwargs.get('name')
+        if name:
+            schema = get_object_or_404(Schema, name=name)
+            columns = schema.column_set.all()
+            files = schema.file_set.all()
+        else:
+            columns = ''
+            files = ''
 
-        return render(self.request, self.template_name, {"columns": columns, "files": files})
+        return render(self.request, self.template_name, {"schema_name": schema.name, "columns": columns, "files": files})
 
     def post(self, *args, **kwargs):
         if self.request.method == "POST":

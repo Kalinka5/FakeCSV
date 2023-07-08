@@ -86,7 +86,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{% url "data_sets" %}',
+            url: '{% url "data_sets" name=schema_name %}',
             data: formData,
             beforeSend: function(xhr) {
               // Create a new row for the new file
