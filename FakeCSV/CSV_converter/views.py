@@ -84,6 +84,7 @@ def new_schema(request):
             integer_from_list = request.POST.getlist("from[]")
             integer_to_list = request.POST.getlist("to[]")
             zip_lists = zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list)
+            
             for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
                 if column_type == "4":
                     IntegerColumn.objects.create(
@@ -124,8 +125,9 @@ class DataSetsView(View):
         return render(self.request, self.template_name, {"schema_name": schema.name, "columns": columns, "files": files})
 
     def post(self, *args, **kwargs):
+        name = kwargs.get('name')
         if self.request.method == "POST":
-            schema = Schema.objects.last()
+            schema = get_object_or_404(Schema, name=name)
             schema_name = schema.name
             schema_delimeter = schema.column_separator
             schema_character = schema.string_character
@@ -161,3 +163,55 @@ class DataSetsView(View):
             return JsonResponse(new_file_data)
 
         return JsonResponse({"error": ""}, status=400)
+
+
+def edit_schema(request, name):
+
+    if request.method == "POST":
+
+        if request.POST["submit"] == "Submit":
+            
+            schema_name = request.POST.get("schema_name")
+            separator = request.POST.get("separator")
+            character = request.POST.get("character")
+
+            schema = get_object_or_404(Schema, name=name)
+            schema.name = schema_name
+            schema.column_separator = separator
+            schema.string_character = character
+            schema.save()
+
+            columns_to_delete = schema.column_set.all()
+            for column in columns_to_delete:
+                column.delete()
+
+            column_name_list = request.POST.getlist("column_name")
+            column_type_list = request.POST.getlist("type")
+            column_order_list = request.POST.getlist("order")
+            integer_from_list = request.POST.getlist("from[]")
+            integer_to_list = request.POST.getlist("to[]")
+            zip_lists = zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list)
+            for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
+                if column_type == "4":
+                    IntegerColumn.objects.create(
+                        name=column_name,
+                        type=column_type,
+                        order=column_order,
+                        schema=schema,
+                        range_low=integer_from,
+                        range_high=integer_to
+                    )
+                else:
+                    Column.objects.create(
+                        name=column_name,
+                        type=column_type,
+                        order=column_order,
+                        schema=schema
+                    )
+                
+            return redirect(f"/data-sets/{schema.name}/")
+
+    schema = get_object_or_404(Schema, name=name)
+    columns = schema.column_set.all().order_by('order')
+
+    return render(request, "edit_schema.html", {"schema": schema, "columns": columns})
