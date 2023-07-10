@@ -15,6 +15,10 @@ import csv
 from .models import Schema, Column, IntegerColumn, File
 
 
+def first_page(request):
+    return redirect("/login/")
+
+
 def get_email(faker):
     first_name = faker.first_name()
     last_name = faker.last_name()
