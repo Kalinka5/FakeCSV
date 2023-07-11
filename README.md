@@ -1,4 +1,8 @@
 # FakeCSV
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/faker?style=plastic&color=green)
+![PyPI](https://img.shields.io/pypi/v/django?color=orange)
+![GitHub](https://img.shields.io/github/license/Kalinka5/FakeCSV?color=blue)
+
 
 <b>📊 FakeCSV</b> is a <b><i>Django application</i></b> that allows users to create custom <b><i>data schemas</i></b> with various column types and generate <b><i>fake data</i></b> based on those schemas. Users can <b><i>log in</i></b> to the app, <b><i>create new schemas</i></b> with customizable options, and build the data schema with <b><i>any number of columns</i></b> of any type. The app provides five pages for user interaction, <i>including login</i>, <i>data schemas</i>, <i>new schema creation</i>, <i>data set display</i>, and <i>schema editing</i>.
 
