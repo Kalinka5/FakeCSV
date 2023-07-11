@@ -73,12 +73,10 @@ def new_schema(request):
             schema_name = request.POST.get("schema_name")
             separator = request.POST.get("separator")
             character = request.POST.get("character")
-            modified_date = date.today().strftime("%Y-%m-%d")
             schema = Schema(
                 name=schema_name,
                 column_separator=separator,
                 string_character=character,
-                modified=modified_date
             )
             schema.save()
 
@@ -217,5 +215,6 @@ def edit_schema(request, name):
 
     schema = get_object_or_404(Schema, name=name)
     columns = schema.column_set.all().order_by('order')
+    options = ['Full name', 'Job', 'Email', 'Integer', 'Date']
 
-    return render(request, "edit_schema.html", {"schema": schema, "columns": columns})
+    return render(request, "edit_schema.html", {"schema": schema, "columns": columns, 'options': options})

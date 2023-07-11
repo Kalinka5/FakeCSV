@@ -4,87 +4,87 @@
   <form method="post">
     {% csrf_token %}
     <div class="container text-left">
-        <div class="row">
-            <div class="col">
-                <h4>New schema</h4>
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" name="schema_name">
-                </div>
-                <div class="mb-3">
-                    <label for="column_separator" class="form-label">Column separator</label>
-                    <select class="form-select"  name="separator" id="column_separator" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value=",">Comma (,)</option>
-                        <option value=";">Semicolon (;)</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">String character</label>
-                    <select class="form-select" name="character" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value='"'>Double-quote (")</option>
-                        <option value="'">Single-quote (')</option>
-                      </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-grid gap-2 d-md-flex justify-content-evenly">
-                  <input class="btn btn-primary" id="submit1" name="submit" type="submit" value="Submit">
-                </div>
-            </div>
+      <div class="row">
+        <div class="col">
+          <h4>New schema</h4>
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" name="schema_name">
+          </div>
+          <div class="mb-3">
+            <label for="column_separator" class="form-label">Column separator</label>
+            <select class="form-select"  name="separator" id="column_separator" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value=",">Comma (,)</option>
+              <option value=";">Semicolon (;)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">String character</label>
+            <select class="form-select" name="character" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value='"'>Double-quote (")</option>
+              <option value="'">Single-quote (')</option>
+            </select>
+          </div>
         </div>
+        <div class="col">
+          <div class="d-grid gap-2 d-md-flex justify-content-evenly">
+            <input class="btn btn-primary" id="submit1" name="submit" type="submit" value="Submit">
+          </div>
+        </div>
+      </div>
     </div>
     <br>
     <div id="columns-container">
       <h4>Schema columns</h4>
     </div>
-      <div class="card">
-        <div class="card-body">
-            <div class="container text-left">
-                <div class="row">
-                  <div class="col">
-                    <label for="column_name" class="form-label">Column name</label>
-                    <input type="text" id="column_name" name="add_column_name" class="form-control">
-                    <br>
-                    <button type="button" id="add-column-button" name="submit" class="btn btn-primary">Add column</button>
-                  </div>
-                  <div class="col">
-                    <label for="type">Type</label>
-                    <select class="form-select" name="type" id="type" aria-label="Type">
-                        <option value="1">Full name</option>
-                        <option value="2">Job</option>
-                        <option value="3">Email</option>
-                        <option value="4">Integer</option>
-                        <option value="5">Date</option>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <div id="integerFields" class="integer-fields">
-                      <div class="container text-left">
-                        <div class="row">
-                          <div class="col">
-                            <label for="from${formCount}" class="form-label">From</label>
-                            <input id="from${formCount}" name="from[]" type="text" class="form-control">
-                          </div>
-                          <div class="col">
-                            <label for="to${formCount}" class="form-label">To</label>
-                            <input id="to${formCount}" name="to[]" type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="container text-left">
+          <div class="row">
+            <div class="col">
+              <label for="column_name" class="form-label">Column name</label>
+              <input type="text" id="column_name" name="add_column_name" class="form-control">
+              <br>
+              <button type="button" id="add-column-button" name="submit" class="btn btn-primary">Add column</button>
+            </div>
+            <div class="col">
+              <label for="type">Type</label>
+              <select class="form-select" name="type" id="type" aria-label="Type">
+                <option value="1">Full name</option>
+                <option value="2">Job</option>
+                <option value="3">Email</option>
+                <option value="4">Integer</option>
+                <option value="5">Date</option>
+              </select>
+            </div>
+            <div class="col">
+              <div id="integerFields" class="integer-fields">
+                <div class="container text-left">
+                  <div class="row">
+                    <div class="col">
+                      <label for="from${formCount}" class="form-label">From</label>
+                      <input id="from${formCount}" name="from[]" type="text" class="form-control">
                     </div>
-                  <div class="col">
-                    <label for="order" class="form-label">Order</label>
-                    <input id="order" type="text" class="form-control" name="add_order">
-                  </div>
-                  <div class="col">
-                    <button class="delete-button">Delete</button>
+                    <div class="col">
+                      <label for="to${formCount}" class="form-label">To</label>
+                      <input id="to${formCount}" name="to[]" type="text" class="form-control">
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
+            <div class="col">
+              <label for="order" class="form-label">Order</label>
+              <input id="order" type="text" class="form-control" name="add_order">
+            </div>
+            <div class="col">
+              <button class="delete-button">Delete</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </form>
 

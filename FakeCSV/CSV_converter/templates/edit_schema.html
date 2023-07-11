@@ -4,184 +4,147 @@
   <form method="post">
     {% csrf_token %}
     <div class="container text-left">
-        <div class="row">
-            <div class="col">
-                <h4>Schema</h4>
-                <div class="mb-3">
-                    <label class="form-label" for="schema_name">Name</label>
-                    <input type="text" id="schema_name" class="form-control" name="schema_name" value="{{ schema.name }}">
-                </div>
-                <div class="mb-3">
-                    <label for="column_separator" class="form-label">Column separator</label>
-                    <select class="form-select"  name="separator" id="column_separator" aria-label="Default select example">
-                        {% if schema.column_separator == ',' %}
-                        <option value="," selected>Comma (,)</option>
-                        <option value=";">Semicolon (;)</option>
-                        {% else %}
-                        <option value=",">Comma (,)</option>
-                        <option value=";" selected>Semicolon (;)</option>
-                        {% endif %}
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">String character</label>
-                    <select class="form-select" name="character" aria-label="Default select example">
-                        {% if schema.string_character == '"' %}
-                        <option value='"' selected>Double-quote (")</option>
-                        <option value="'">Single-quote (')</option>
-                        {% else %}
-                        <option value='"'>Double-quote (")</option>
-                        <option value="'" selected>Single-quote (')</option>
-                        {% endif %}
-                      </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="d-grid gap-2 d-md-flex justify-content-evenly">
-                  <input class="btn btn-primary" id="submit1" name="submit" type="submit" value="Submit">
-                </div>
-            </div>
+      <div class="row">
+        <div class="col">
+          <h4>Schema</h4>
+          <div class="mb-3">
+            <label class="form-label" for="schema_name">Name</label>
+            <input type="text" id="schema_name" class="form-control" name="schema_name" value="{{ schema.name }}">
+          </div>
+          <div class="mb-3">
+            <label for="column_separator" class="form-label">Column separator</label>
+            <select class="form-select"  name="separator" id="column_separator" aria-label="Default select example">
+              {% if schema.column_separator == ',' %}
+                <option value="," selected>Comma (,)</option>
+                <option value=";">Semicolon (;)</option>
+              {% else %}
+                <option value=",">Comma (,)</option>
+                <option value=";" selected>Semicolon (;)</option>
+              {% endif %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">String character</label>
+            <select class="form-select" name="character" aria-label="Default select example">
+              {% if schema.string_character == '"' %}
+                <option value='"' selected>Double-quote (")</option>
+                <option value="'">Single-quote (')</option>
+              {% else %}
+                <option value='"'>Double-quote (")</option>
+                <option value="'" selected>Single-quote (')</option>
+              {% endif %}
+            </select>
+          </div>
         </div>
+        <div class="col">
+          <div class="d-grid gap-2 d-md-flex justify-content-evenly">
+            <input class="btn btn-primary" id="submit1" name="submit" type="submit" value="Submit">
+          </div>
+        </div>
+      </div>
     </div>
     <br>
     <h4>Schema columns</h4>
     <div id="columns-container">
-        {% for column in columns %}
+      {% for column in columns %}
         <div class="card-body">
-            <div class="container text-left">
-                <div class="row">
-                <div class="col">
-                    <label for="column_name{{ forloop.counter }}" class="form-label">Column name</label>
-                    <input type="text" id="column_name{{ forloop.counter }}" name="column_name" class="form-control" value="{{ column.name }}">
-                </div>
-                <div class="col">
-                    <label for="type" class="form-label">Type</label>
-                    <select class="form-select" name="type" id="type">
-                        {% if column.type == '1' %}
-                        <option value="1" selected>Full name</option>
-                        <option value="2">Job</option>
-                        <option value="3">Email</option>
-                        <option value="4">Integer</option>
-                        <option value="5">Date</option>
-                        {% elif column.type == '2' %}
-                        <option value="1">Full name</option>
-                        <option value="2" selected>Job</option>
-                        <option value="3">Email</option>
-                        <option value="4">Integer</option>
-                        <option value="5">Date</option>
-                        {% elif column.type == '3' %}
-                        <option value="1">Full name</option>
-                        <option value="2">Job</option>
-                        <option value="3" selected>Email</option>
-                        <option value="4">Integer</option>
-                        <option value="5">Date</option>
-                        {% elif column.type == '4' %}
-                        <option value="1">Full name</option>
-                        <option value="2">Job</option>
-                        <option value="3">Email</option>
-                        <option value="4" selected>Integer</option>
-                        <option value="5">Date</option>
-                        {% else %}
-                        <option value="1">Full name</option>
-                        <option value="2">Job</option>
-                        <option value="3">Email</option>
-                        <option value="4">Integer</option>
-                        <option value="5" selected>Date</option>
-                        {% endif %}
-                    </select>
-                </div>
-                <div class="col">
-                    {% if column.type == "4" %}
-                    <div id="integerFields{{ forloop.counter }}" class="integer-fields">
-                    <div class="container text-left">
-                        <div class="row">
-                        <div class="col">
-                            <label for="from{{ forloop.counter }}" class="form-label">From</label>
+          <div class="container text-left">
+            <div class="row">
+              <div class="col">
+                <label for="column_name{{ forloop.counter }}" class="form-label">Column name</label>
+                <input type="text" id="column_name{{ forloop.counter }}" name="column_name" class="form-control" value="{{ column.name }}">
+              </div>
+              <div class="col">
+                <label for="type" class="form-label">Type</label>
+                <select class="form-select" name="type" id="type">
+                  {% for option in options %}
+                    <option value="{{ forloop.counter }}" {% if column.type|add:0 == forloop.counter %}selected{% endif %}>{{ option }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col">
+                <div id="integerFields{{ forloop.counter }}" class="integer-fields">
+                  <div class="container text-left">
+                    <div class="row">
+                      <div class="col">
+                          <label for="from{{ forloop.counter }}" class="form-label">From</label>
+                          {% if column.type == "4" %}
                             <input id="from{{ forloop.counter }}" name="from[]" type="text" class="form-control" value="{{ column.integercolumn.range_low }}">
-                        </div>
-                        <div class="col">
-                            <label for="to{{ forloop.counter }}" class="form-label">To</label>
-                            <input id="to{{ forloop.counter }}" name="to[]" type="text" class="form-control" value="{{ column.integercolumn.range_high }}">
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    {% else %}
-                    <div id="integerFields{{ forloop.counter }}" class="integer-fields hidden-fields">
-                        <div class="container text-left">
-                        <div class="row">
-                            <div class="col">
-                            <label for="from{{ forloop.counter }}" class="form-label">From</label>
+                          {% else %}
                             <input id="from{{ forloop.counter }}" name="from[]" type="text" class="form-control">
-                            </div>
-                            <div class="col">
-                            <label for="to{{ forloop.counter }}" class="form-label">To</label>
+                          {% endif %}
+                      </div>
+                      <div class="col">
+                          <label for="to{{ forloop.counter }}" class="form-label">To</label>
+                          {% if column.type == "4" %}
+                            <input id="to{{ forloop.counter }}" name="to[]" type="text" class="form-control" value="{{ column.integercolumn.range_high }}">
+                          {% else %}
                             <input id="to{{ forloop.counter }}" name="to[]" type="text" class="form-control">
-                            </div>
-                        </div>
-                        </div>
+                          {% endif %}
+                      </div>
                     </div>
-                    {% endif %}
+                  </div>
                 </div>
-                <div class="col">
-                    <label for="order{{ forloop.counter }}" class="form-label">Order</label>
-                    <input id="order{{ forloop.counter }}" type="text" class="form-control" name="order" value="{{ column.order }}">
-                </div>
-                <div class="col">
-                    <button class="delete-button" type="button">Delete</button>
-                </div>
-                </div>
+              </div>
+              <div class="col">
+                <label for="order{{ forloop.counter }}" class="form-label">Order</label>
+                <input id="order{{ forloop.counter }}" type="text" class="form-control" name="order" value="{{ column.order }}">
+              </div>
+              <div class="col">
+                <button class="delete-button" type="button">Delete</button>
+              </div>
             </div>
-            <br>
+          </div>
+          <br>
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
     <div class="card">
-        <div class="card-body">
-            <div class="container text-left">
-                <div class="row">
-                  <div class="col">
-                    <label for="column_name" class="form-label">Column name</label>
-                    <input type="text" id="column_name" name="add_column_name" class="form-control">
-                    <br>
-                    <button type="button" id="add-column-button" name="submit" class="btn btn-primary">Add column</button>
-                  </div>
-                  <div class="col">
-                    <label for="type">Type</label>
-                    <select class="form-select" name="type" id="type" aria-label="Type">
-                        <option value="1">Full name</option>
-                        <option value="2">Job</option>
-                        <option value="3">Email</option>
-                        <option value="4">Integer</option>
-                        <option value="5">Date</option>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <div id="integerFields" class="integer-fields hidden-fields">
-                      <div class="container text-left">
-                        <div class="row">
-                          <div class="col">
-                            <label for="from${formCount}" class="form-label">From</label>
-                            <input id="from${formCount}" name="from[]" type="text" class="form-control">
-                          </div>
-                          <div class="col">
-                            <label for="to${formCount}" class="form-label">To</label>
-                            <input id="to${formCount}" name="to[]" type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      </div>
+      <div class="card-body">
+        <div class="container text-left">
+          <div class="row">
+            <div class="col">
+              <label for="column_name" class="form-label">Column name</label>
+              <input type="text" id="column_name" name="add_column_name" class="form-control">
+              <br>
+              <button type="button" id="add-column-button" name="submit" class="btn btn-primary">Add column</button>
+            </div>
+            <div class="col">
+              <label for="type">Type</label>
+              <select class="form-select" name="type" id="type" aria-label="Type">
+                <option value="1">Full name</option>
+                <option value="2">Job</option>
+                <option value="3">Email</option>
+                <option value="4">Integer</option>
+                <option value="5">Date</option>
+              </select>
+            </div>
+            <div class="col">
+              <div id="integerFields" class="integer-fields hidden-fields">
+                <div class="container text-left">
+                  <div class="row">
+                    <div class="col">
+                      <label for="from${formCount}" class="form-label">From</label>
+                      <input id="from${formCount}" name="from[]" type="text" class="form-control">
                     </div>
-                  <div class="col">
-                    <label for="order" class="form-label">Order</label>
-                    <input id="order" type="text" class="form-control" name="add_order">
-                  </div>
-                  <div class="col">
-                    <button class="delete-button">Delete</button>
+                    <div class="col">
+                      <label for="to${formCount}" class="form-label">To</label>
+                      <input id="to${formCount}" name="to[]" type="text" class="form-control">
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
+            <div class="col">
+              <label for="order" class="form-label">Order</label>
+              <input id="order" type="text" class="form-control" name="add_order">
+            </div>
+            <div class="col">
+              <button class="delete-button">Delete</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </form>
 
@@ -199,7 +162,7 @@
     let addColumnButton = document.querySelector('#add-column-button');
     let columnFormsContainer = document.querySelector('#columns-container');
 
-    let formCount = 8;
+    let formCount = document.querySelectorAll('.card-body').length;
 
     addColumnButton.addEventListener('click', function() {
         formCount++;
@@ -275,7 +238,7 @@
             columnForm.remove();
         });
     });
-    
+
     // Handle the existing column forms
     let columnForms = document.querySelectorAll('.card-body');
 

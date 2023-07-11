@@ -4,71 +4,71 @@
   <form method="post">
     {% csrf_token %}
     <div class="row justify-content-start">
-        <div class="col-4">
-            <h4>Sample schema</h4>
-        </div>
-        <div class="col-4">
-          <a href="{% url 'edit_schema' name=schema_name %}">Edit shema</a>
-        </div>
+      <div class="col-4">
+        <h4>Sample schema</h4>
+      </div>
+      <div class="col-4">
+        <a href="{% url 'edit_schema' name=schema_name %}">Edit shema</a>
+      </div>
     </div>
     <br>
     <table class="table table-bordered">
-        <thead>
+      <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Column name</th>
-            <th scope="col">Column type</th>
+          <th scope="col">#</th>
+          <th scope="col">Column name</th>
+          <th scope="col">Column type</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         {% for column in columns %}
-        <tr>
+          <tr>
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ column.name }}</td>
             <td>{{ column.get_type_display }}</td>
-        </tr>
+          </tr>
         {% endfor %}
-        </tbody>
+      </tbody>
     </table>
     <div class="d-flex justify-content-between mb-4">
-          <div class="col p-0">
-            <h4>Data sets</h4>
+      <div class="col p-0">
+        <h4>Data sets</h4>
+      </div>
+      <div class="col">
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="rows" class="col-form-label">Rows:</label>
           </div>
-          <div class="col">
-            <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label for="rows" class="col-form-label">Rows:</label>
-                </div>
-                <div class="col-auto">
-                  <input type="text" id="rows" name="rows" class="form-control">
-                </div>
-                <div class="col-auto">
-                    <button id="generate-data" type="submit" class="btn btn-success">Generate data</button>
-                </div>
-            </div>
+          <div class="col-auto">
+            <input type="text" id="rows" name="rows" class="form-control">
           </div>
+          <div class="col-auto">
+            <button id="generate-data" type="submit" class="btn btn-success">Generate data</button>
+          </div>
+        </div>
+      </div>
     </div>
     <table id="data-table" class="table table-bordered">
-        <thead>
+      <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Created</th>
-            <th scope="col">Status</th>
-            <th scope="col">Actions</th>
+          <th scope="col">#</th>
+          <th scope="col">Created</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
         </tr>
-        </thead>
-        <tbody id="table-body">
-          {% for file in files %}
+      </thead>
+      <tbody id="table-body">
+        {% for file in files %}
           <tr>
-              <th scope="row">{{ forloop.counter }}</th>
-              <td>{{ file.date|date:"Y-m-d" }}</td>
-              <td class="status-cell" style="display:flex;">
-                <div style="background-color: #1a9f03; border-radius: 5px; padding: 5px; color: white;">Ready</div>
-              </td>
-              <td><a href="/media/{{ file.name }}">Download</a></td>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ file.date|date:"Y-m-d" }}</td>
+            <td class="status-cell" style="display:flex;">
+              <div style="background-color: #1a9f03; border-radius: 5px; padding: 5px; color: white;">Ready</div>
+            </td>
+            <td><a href="/media/{{ file.name }}">Download</a></td>
           </tr>
-          {% endfor %}
-        </tbody>
+        {% endfor %}
+      </tbody>
     </table>
   </form>
   <script>

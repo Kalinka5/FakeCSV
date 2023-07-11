@@ -13,31 +13,31 @@
     
   </head>
   <body class="text-center">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="">
-              <div class="card mt-3 shadow">
-                <div class="card-body">
-                  <form method="POST">
-                    {% csrf_token %}
-                    <div class="text-center">
-                      <h4>Login</h4>
-                    </div>
-                    </br>
-                    <div class="mb-3">
-                      <input name="username" class="form-control" placeholder="Username" type="text">
-                    </div>
-                    <div class="mb-3">
-                      <input name="password" class="form-control" placeholder="Password" type="password">
-                    </div>
-                    <input class="btn float-end shadow btn-primary px-4" type="submit" value="Login">
-                  </form>
-                </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="">
+            <div class="card mt-3 shadow">
+              <div class="card-body">
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="text-center">
+                    <h4>Login</h4>
+                  </div>
+                  </br>
+                  <div class="mb-3">
+                    <input name="username" class="form-control" placeholder="Username" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <input name="password" class="form-control" placeholder="Password" type="password">
+                  </div>
+                  <input class="btn float-end shadow btn-primary px-4" type="submit" value="Login">
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </body>
 </html>
