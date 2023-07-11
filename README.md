@@ -45,7 +45,7 @@
 - <b>URL</b>: `/data-schemas/new-schema`
 - <b>Description</b>: Allows users to create a new data schema.
 - <b>Fields</b>:
-  - <b>🖊️ Name</b>: Name of the schema. 🖊️
+  - <b>🖊️ Name</b>: Name of the schema.
   - <b>🔀 Column Separator</b>: Separator character for the columns (',' or ';').
   - <b>📰 String Character</b>: Character to enclose string values ('"' or "'").
 - <b>Actions</b>:
