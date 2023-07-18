@@ -53,7 +53,7 @@ def data_schemas(request):
         except Schema.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Schema not found.'})
 
-    data_schemas = Schema.objects.all()
+    data_schemas = Schema.objects.filter(user=request.user)
     data_schemas_dict = {'schemas': data_schemas}
     return render(request, "data_schemas.html", data_schemas_dict)
 
