@@ -58,7 +58,7 @@ ROOT_URLCONF = 'FakeCSV.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['FakeCSV/templates'],
+        'DIRS': ['CSV_converter/templates', 'members/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,8 +130,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/data-schemas'
-LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/login/'
+LOGIN_REDIRECT_URL = 'data_schemas'
+LOGOUT_REDIRECT_URL = 'login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

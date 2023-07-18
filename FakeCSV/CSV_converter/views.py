@@ -8,15 +8,10 @@ from django.shortcuts import get_object_or_404
 from faker import Faker
 
 import os
-from datetime import date
 import random
 import csv
 
 from .models import Schema, Column, IntegerColumn, File
-
-
-def first_page(request):
-    return redirect("/login/")
 
 
 def get_email(faker):
