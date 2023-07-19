@@ -8,7 +8,7 @@
 
 ## Features
 
-- <b>🔐 User Authentication</b>: Securely log in to the app.
+- <b>🔐 User Authentication</b>: Securely log in to the app and register page.
 - <b>🗄️ Schema Management</b>: <i>Create</i>, <i>edit</i>, and <i>delete</i> data schemas.
 - <b>📝 Column Management</b>: <i>Add</i>, <i>edit</i>, and <i>delete</i> columns in a schema.
 - <b>🎨 Customizable Options</b>: Personalize schemas with custom <i>names</i>, <i>column separators</i>, and <i>string characters</i>.
@@ -20,10 +20,19 @@
 
 ### Login
 
-- <b>URL</b>: `/login/`
-- <b>Description</b>: Allows users to log in to the application.
+- <b>URL</b>: `/members/login/`
+- <b>Description</b>: Provides users with a secure and convenient way to access their accounts.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/a382d1a6-b6fd-4779-a267-bccf1d859439)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/65f2be6f-6907-4a99-bc24-c505cb84121c)
+
+<hr>
+
+### Register
+
+- <b>URL</b>: `/members/register/`
+- <b>Description</b>: Provide their personal details, including name, email address, and password.
+
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/34da444e-3f01-49b7-8026-b6ab07a4f4ab)
 
 <hr>
 
