@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>Profile</h1>
+  <br>
+
+  <div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Password:</p>
+        <p>You can change the password using <a href="{% url 'change_password' %}">this form</a>.</p>
+        <input class="btn shadow btn-primary px-4" type="submit" value="Update">
+    </form>
+  </div>
+{% endblock %}

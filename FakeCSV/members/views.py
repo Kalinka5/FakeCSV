@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
-from django.views import View
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
+from django.views import generic, View
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+
+from .forms import ProfileForm, PasswordChangingForm
 
 
 class UserRegisterView(View):
@@ -27,3 +32,21 @@ class UserRegisterView(View):
         
         return render(self.request, self.template_name, register)
         
+
+class UserProfileView(generic.UpdateView):
+    form_class = ProfileForm
+    template_name = "registration/profile.html"
+    success_url = reverse_lazy('data_schemas')
+
+    def get_object(self):
+        return self.request.user
+    
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    template_name = "registration/change_password.html"
+    success_url = reverse_lazy('password_success')
+
+
+def password_success(request):
+    return render(request, 'registration/password_success.html', {})
