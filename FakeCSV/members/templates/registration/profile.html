@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block content %}
+  {% if user.profile.picture %}
+    <img id="profile-image" src="{{ user.profile.picture.url }}" class="rounded-circle float-end profile-picture" alt="Profile picture" width="100px">
+  {% else %}
+    <img id="profile-image" src="{% static 'images/default_profile.png' %}" class="float-end profile-picture" alt="Profile picture" width="100px">
+  {% endif %}
   <h1>Profile</h1>
   <br>
-
+  <br>
   <div class="form-group">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <p>Password:</p>
-        <p>You can change the password using <a href="{% url 'change_password' %}">this form</a>.</p>
+        <p class="form-control">Password:</p>
+        <p class="form-control">You can change the password using <a href="{% url 'change_password' %}">this form</a>.</p>
         <input class="btn shadow btn-primary px-4" type="submit" value="Update">
     </form>
   </div>
+  <script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}
