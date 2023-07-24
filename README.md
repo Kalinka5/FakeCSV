@@ -15,6 +15,7 @@
 - <b>🔢 Column Types</b>: Choose from a variety of column types, including <i>'Full name'</i>, <i>'Job'</i>, <i>'Email'</i>, <i>'Integer'</i>, and <i>'Date'</i>.
 - <b>🔄 Data Generation</b>: Generate realistic <i>fake data</i> based on defined schemas.
 - <b>⬇️ Data Download</b>: Download generated data as a <i>CSV file</i>.
+- <b>👤 User Profile</b>: Manage and update <i>personal information</i> and preferences through the user profile page.
 
 ## Pages
 
@@ -87,6 +88,24 @@
   - <b>❌ Delete Columns</b>: Users can click on the "Delete" button to delete the column.
 
 ![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/0c92f710-2081-425c-808f-437946037caf)
+
+<hr>
+
+### Profile
+
+- <b>URL</b>: `/members/profile/`
+- <b>Description</b>: The profile web page is a user-centric space for managing personal information and preferences within the platform.
+
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/85517ac1-d2e8-48c5-b572-ef13d3b18a15)
+
+<hr>
+
+### Change password
+
+- <b>URL</b>: `/members/password/`
+- <b>Description</b>: Web page enables users to update their account's password securely for enhanced online security.
+
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/031df2ba-e255-4ffc-97e2-0e93139ef02f)
 
 <hr>
 
