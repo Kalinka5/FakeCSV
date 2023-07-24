@@ -122,7 +122,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    "CSV_converter/static",
     "members/static",
 ]
 
