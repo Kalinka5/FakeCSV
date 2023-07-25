@@ -1,4 +1,3 @@
-// profile.js
 document.addEventListener('DOMContentLoaded', function () {
     const profileImage = document.getElementById('profile-image');
     const fileInput = document.createElement('input');

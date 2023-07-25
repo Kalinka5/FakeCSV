@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="preload" as="style" href="{% static 'css/data_sets.css' %}" onload="this.rel = 'stylesheet'"/> 
+{% endblock %}
 
 {% block content %}
+<div class="col-sm-9 p-3">
   <form method="post">
     {% csrf_token %}
     <div class="row justify-content-start">
@@ -8,7 +14,7 @@
         <h4>Sample schema</h4>
       </div>
       <div class="col-4">
-        <a href="{% url 'edit_schema' name=schema_name %}">Edit shema</a>
+        <a role="button" href="{% url 'edit_schema' name=schema_name %}" class="btn btn-secondary">Edit shema</a>
       </div>
     </div>
     <br>
@@ -30,20 +36,22 @@
         {% endfor %}
       </tbody>
     </table>
-    <div class="d-flex justify-content-between mb-4">
-      <div class="col p-0">
-        <h4>Data sets</h4>
-      </div>
-      <div class="col">
-        <div class="row g-3 align-items-center">
-          <div class="col-auto">
-            <label for="rows" class="col-form-label">Rows:</label>
-          </div>
-          <div class="col-auto">
-            <input type="text" id="rows" name="rows" class="form-control">
-          </div>
-          <div class="col-auto">
-            <button id="generate-data" type="submit" class="btn btn-success">Generate data</button>
+    <div class="container text-left">
+      <div class="row justify-content-between">
+        <div class="col p-0">
+          <h4>Data sets</h4>
+        </div>
+        <div class="col-4">
+          <div class="row justify-content-center">
+            <div class="col col-lg-2">
+              <label for="rows" class="col-form-label"><b>Rows:</b></label>
+            </div>
+            <div class="col col-lg-4">
+              <input type="text" id="rows" name="rows" class="form-control form-control-sm">
+            </div>
+            <div class="col">
+              <button id="generate-data" type="submit" class="btn btn-success btn-sm">Generate data</button>
+            </div>
           </div>
         </div>
       </div>
@@ -71,59 +79,61 @@
       </tbody>
     </table>
   </form>
-  <script>
-    $(document).ready(function() {
+</div>
 
-      var rowCount = $('#table-body tr').length;
+<script>
+  $(document).ready(function() {
 
-      $('form').on('submit', function(event) {
-        event.preventDefault();
+    var rowCount = $('#table-body tr').length;
 
-        var formData = $(this).serialize();
+    $('form').on('submit', function(event) {
+      event.preventDefault();
 
-        // Find the status and actions cells of the new row
-        var statusCell, createdCell, actionsCell;
+      var formData = $(this).serialize();
 
-        $.ajax({
-            type: 'POST',
-            url: '{% url "data_sets" name=schema_name %}',
-            data: formData,
-            beforeSend: function(xhr) {
-              // Create a new row for the new file
-              var newRow = `
-              <tr>
-                <th scope="row">${rowCount + 1}</th>
-                <td class="created-cell"></td>
-                <td class="status-cell" style="display:flex;">
-                  <div style="background-color: #6b6c6b; border-radius: 5px; padding: 5px; color: white;">Processing</div>
-                </td>
-                <td></td>
-              </tr>
-              `;
+      // Find the status and actions cells of the new row
+      var statusCell, createdCell, actionsCell;
 
-              // Append the new row to the table
-              $('#table-body').append(newRow);
+      $.ajax({
+          type: 'POST',
+          url: '{% url "data_sets" name=schema_name %}',
+          data: formData,
+          beforeSend: function(xhr) {
+            // Create a new row for the new file
+            var newRow = `
+            <tr>
+              <th scope="row">${rowCount + 1}</th>
+              <td class="created-cell"></td>
+              <td class="status-cell" style="display:flex;">
+                <div style="background-color: #6b6c6b; border-radius: 5px; padding: 5px; color: white;">Processing</div>
+              </td>
+              <td></td>
+            </tr>
+            `;
 
-              // Set the cells variables for further updates
-              statusCell = $('#table-body tr:last-child .status-cell');
-              createdCell = $('#table-body tr:last-child .created-cell');
-              actionsCell = $('#table-body tr:last-child td:last-child');
-            },
-            success: function(response) {
-              createdCell.text(response.date);
-              statusCell.html(`<div class="status-cell" style="background-color: #1a9f03; border-radius: 5px; padding: 5px; color: white;">Ready</div>`);
-              actionsCell.html(`<a href="/media/${response.name}">Download</a>`);
-            },
-            error: function(xhr) {
-              console.log(xhr.responseText);
+            // Append the new row to the table
+            $('#table-body').append(newRow);
 
-              createdCell.text('Error');
-              statusCell.text('Error').removeClass('status-cell').addClass('error-cell');
-            }
-        });
+            // Set the cells variables for further updates
+            statusCell = $('#table-body tr:last-child .status-cell');
+            createdCell = $('#table-body tr:last-child .created-cell');
+            actionsCell = $('#table-body tr:last-child td:last-child');
+          },
+          success: function(response) {
+            createdCell.text(response.date);
+            statusCell.html(`<div class="status-cell" style="background-color: #1a9f03; border-radius: 5px; padding: 5px; color: white;">Ready</div>`);
+            actionsCell.html(`<a href="/media/${response.name}">Download</a>`);
+          },
+          error: function(xhr) {
+            console.log(xhr.responseText);
 
-        rowCount++;
+            createdCell.text('Error');
+            statusCell.text('Error').removeClass('status-cell').addClass('error-cell');
+          }
       });
+
+      rowCount++;
     });
-  </script>
+  });
+</script>
 {% endblock %}

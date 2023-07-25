@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h4>Data schemas</h4>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a class="btn btn-primary" href="{% url 'new_schema' %}" role="button">New schema</a>
+<div class="col-sm-9 p-3">
+    <div class="container text-left">
+        <div class="row">
+            <div class="col">
+                <h4>Data schemas</h4>
+            </div>
+            <div class="col">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a class="btn btn-primary" href="{% url 'new_schema' %}" role="button">New schema</a>
+                </div>
+            </div>
+        </div>
     </div>
     <br>
     <table class="table table-bordered">
@@ -32,43 +42,45 @@
             </form>
         </tbody>
     </table>
-    <script>
-        $(document).ready(function() {
-            // Function to get the CSRF cookie value
-            function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = cookies[i].trim();
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Function to get the CSRF cookie value
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
                     }
                 }
-                return cookieValue;
             }
-        
-            $('.delete-schema-btn').click(function() {
-                var schemaId = $(this).data('schema-id');
-                var csrfToken = getCookie('csrftoken'); // Get the CSRF token from the cookie
-        
-                $.ajax({
-                    url: "{% url 'data_schemas' %}",  // Replace with the actual URL for deleting a schema
-                    method: 'POST',
-                    data: {
-                        schema_id: schemaId,
-                        csrfmiddlewaretoken: csrfToken  // Include the CSRF token in the request data
-                    },
-                    beforeSend: function(xhr, settings) {
-                        xhr.setRequestHeader('X-CSRFToken', csrfToken);  // Include the CSRF token in the request headers
-                    },
-                    success: function() {
-                        $('#schema-row-' + schemaId).remove();  // Remove the row from the table
-                    }
-                });
+            return cookieValue;
+        }
+
+        $('.delete-schema-btn').click(function() {
+            var schemaId = $(this).data('schema-id');
+            var csrfToken = getCookie('csrftoken'); // Get the CSRF token from the cookie
+
+            $.ajax({
+                url: "{% url 'data_schemas' %}",  // Replace with the actual URL for deleting a schema
+                method: 'POST',
+                data: {
+                    schema_id: schemaId,
+                    csrfmiddlewaretoken: csrfToken  // Include the CSRF token in the request data
+                },
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('X-CSRFToken', csrfToken);  // Include the CSRF token in the request headers
+                },
+                success: function() {
+                    $('#schema-row-' + schemaId).remove();  // Remove the row from the table
+                }
             });
         });
-        </script>
+    });
+</script>
 {% endblock %}
