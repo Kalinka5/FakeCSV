@@ -1,39 +1,39 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth.forms import PasswordChangeForm
-from django.views import generic, View
+from django.views.generic.edit import CreateView
+from django.views.generic import UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.contrib import messages
 
-from .forms import ProfileForm, PasswordChangingForm
+from .forms import NewUserForm, ProfileForm, PasswordChangingForm
 
 
-class UserRegisterView(View):
+class UserRegisterView(CreateView):
     template_name = "registration/register.html"
 
     def get(self, *args, **kwargs):
         return render(self.request, self.template_name)
 
     def post(self, *args, **kwargs):
+        password_mismatch = False
+        form = NewUserForm(self.request.POST)
         username = self.request.POST.get("username")
         email = self.request.POST.get("email")
-        password = self.request.POST.get("password")
-        conf_password = self.request.POST.get("conf-password")
-        password_mismatch = False
-
-        if password != conf_password:
-            password_mismatch = True
-        else:
-            usr = User.objects.create_user(username, email, password)
-            usr.save()
+        if form.is_valid():
+            user = form.save()
+            login(self.request, user)
+            messages.success(self.request, "Registration successful." )
             return redirect("login")
+        else:
+            password_mismatch = True
         
         register = {"password_mismatch": password_mismatch, "username": username, "email": email}
         
         return render(self.request, self.template_name, register)
         
 
-class UserProfileView(generic.UpdateView):
+class UserProfileView(UpdateView):
     form_class = ProfileForm
     template_name = "registration/profile.html"
     success_url = reverse_lazy('data_schemas')
