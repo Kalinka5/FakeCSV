@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #e6eaed;" role="navigation">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">FakeCSV</span>
+      <span class="navbar-brand mb-0 h1"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">FakeCSV</a></span>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {% if user.is_authenticated %}
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">

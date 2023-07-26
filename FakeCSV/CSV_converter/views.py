@@ -57,6 +57,10 @@ def delete_files(prefix):
                 print(f"Error deleting {file_path}: {e}")
 
 
+def home(request):
+    return render(request, "home.html", {})
+
+
 @login_required
 def data_schemas(request):
 

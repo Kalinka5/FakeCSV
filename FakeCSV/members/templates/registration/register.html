@@ -5,7 +5,6 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="">
           <div class="card mt-3 shadow">
             <div class="card-body">
               <form method="POST">
@@ -33,12 +32,20 @@
                   <small class="text-danger">You entered not the same password!</small>
                   {% endif %}
                 </div>
-                <input class="btn float-end shadow btn-primary px-4" type="submit" value="Register">
-              </form>
-            </div>
+                <div class="container text-left">
+                  <div class="row">
+                    <div class="col-auto">
+                      <p>If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
+                    </div>
+                    <div class="col-auto">
+                      <input class="btn float-end shadow btn-primary px-4" type="submit" value="Register">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
 {% endblock %}

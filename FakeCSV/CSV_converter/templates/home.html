@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="preload" as="style" href="{% static 'css/data_sets.css' %}" onload="this.rel = 'stylesheet'"/> 
+{% endblock %}
+
+{% block content %}
+
+<div class="container p-3">
+    <h2>Welcome to FakeCSV - Your Custom Data Schema Generator!</h2>
+
+    <h3>Create, Generate, and Manage Fake Data with Ease</h3>
+
+    <p>FakeCSV is a powerful Django web application designed to empower users with the ability to effortlessly build custom data schemas and generate fake data based on their specific requirements. Whether you're a developer, data scientist, or simply need realistic placeholder data for testing, FakeCSV has got you covered.</p>
+
+    <h4>Key Features:</h4>
+    <ol>
+        <li>
+            <b>User-Friendly Login:</b>
+            <p>Seamlessly access your personalized dashboard by logging into your account. Your data schemas and generated datasets are securely stored for easy access whenever you need them.</p>
+        </li>
+        <li>
+            <b>Intuitive Data Schema Creation:</b>
+            <p>With FakeCSV, you have the flexibility to design data schemas exactly as you envision them. Create any number of columns and choose from a wide range of column types, including text, numbers, dates, booleans, and more.</p>
+        </li>
+        <li>
+            <b>Customizable Options:</b>
+            <p>Tailor your data schema to your exact needs with various customizable options for each column. Define min/max values, date formats, string patterns, and other parameters to ensure the generated fake data aligns perfectly with your use case.</p>        
+        </li>
+        <li>
+            <b>Manage Your Data Schemas:</b>
+            <p>View and organize all your existing data schemas in one place. Easily edit or delete schemas as your requirements evolve, ensuring seamless data management.</p>        
+        </li>
+        <li>
+            <b>Effortless Data Generation:</b>
+            <p>Once you've designed your data schema, FakeCSV empowers you to create large datasets with a single click. Generate realistic fake data in the blink of an eye for quick prototyping, testing, or any other data-related tasks.</p>        
+        </li>
+    </ol>
+               
+    <h4>Experience the Power of FakeCSV Today:</h4>
+    <p>Join our ever-growing community of developers, data enthusiasts, and testers who rely on FakeCSV for fast and accurate data generation. Say goodbye to tedious manual data entry and start harnessing the potential of FakeCSV for all your fake data needs.</p>
+    {% if user.is_authenticated %}
+    {% else %}   
+    <p><a href="{% url 'register' %}">Sign up</a> now to embark on a data generation journey like never before!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
