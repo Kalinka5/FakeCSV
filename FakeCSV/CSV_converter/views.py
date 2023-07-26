@@ -41,6 +41,22 @@ def generate_fake_data(all_columns, faker):
     return fake_data
 
 
+def delete_files(prefix):
+    # Get a list of all files in the specified folder
+    folder_path = "media"
+    files = os.listdir(folder_path)
+
+    # Iterate through each file and check if its name starts with the given prefix
+    for file in files:
+        file_path = os.path.join(folder_path, file)
+        if os.path.isfile(file_path) and file.startswith(prefix) and len(file) > len(prefix) and file[len(prefix)].isdigit():
+            # If the conditions are met, delete the file
+            try:
+                os.remove(file_path)
+            except OSError as e:
+                print(f"Error deleting {file_path}: {e}")
+
+
 @login_required
 def data_schemas(request):
 
@@ -48,6 +64,8 @@ def data_schemas(request):
         schema_id = request.POST.get('schema_id')
         try:
             schema = Schema.objects.get(pk=schema_id)
+            schema_name = schema.name
+            delete_files(schema_name)
             schema.delete()
             return JsonResponse({'success': True})
         except Schema.DoesNotExist:

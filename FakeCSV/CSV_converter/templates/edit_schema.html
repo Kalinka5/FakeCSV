@@ -8,7 +8,7 @@
 {% block content %}
   <form method="post">
     {% csrf_token %}
-    <div class="container text-left">
+    <div class="container text-left p-3">
       <div class="row">
         <div class="col">
           <h4>Schema</h4>
@@ -48,7 +48,6 @@
         </div>
       </div>
     </div>
-    <br>
     <h4>Schema columns</h4>
     <div id="columns-container">
       {% for column in columns %}
@@ -104,7 +103,7 @@
         </div>
       {% endfor %}
     </div>
-    <div class="card">
+    <div class="card mb-3">
       <div class="card-body">
         <div class="container text-left">
           <div class="row">
