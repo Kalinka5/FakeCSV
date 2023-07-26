@@ -46,7 +46,7 @@
   - <b>📚 Access Data Sets</b>: Explore data sets of existing schemas.
   - <b>❌ Delete Schema</b>: Remove an already created schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/08f291c9-a4fa-41a9-965f-ba70bc127a72)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/ac301ba2-1fa4-4326-975a-8e264522273d)
 
 <hr>
 
@@ -62,7 +62,7 @@
   - <b>➕ Add a New Column</b>: Users can click on the "Add Column" button to add a new column to the schema.
   - <b>💾 Save the Schema</b>: Users can click on the "Submit" button to save the schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/a81cf50f-fa0d-4486-a059-94f1cc0f4cc9)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/5d53e938-e4d7-494d-9063-e78fc9600f4e)
 
 <hr>
 
@@ -74,7 +74,7 @@
   - <b>📊 Generate Data</b>: Users can enter the number of rows to generate and click on the "Generate data" button to generate data.
   - <b>⬇️ Download Data</b>: Users can click on the "Download" button to download the generated data as a CSV file.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/46f69997-2736-4e86-b7fc-ae4e2b1bd0cc)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/db1dd59b-f4ce-4a81-aad0-312a5a170dad)
 
 <hr>
 
@@ -87,7 +87,7 @@
   - <b>✏️ Edit Columns</b>: Users can modify the column details (name, type, etc.) and click on the "Submit" button to save the changes.
   - <b>❌ Delete Columns</b>: Users can click on the "Delete" button to delete the column.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/0c92f710-2081-425c-808f-437946037caf)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/5005d4ab-1dfc-40bd-b40f-36ae3270c3ee)
 
 <hr>
 
