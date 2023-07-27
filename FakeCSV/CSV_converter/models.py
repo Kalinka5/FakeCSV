@@ -13,13 +13,13 @@ TYPE_CHOICES = (
 
 class Schema(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    name = models.CharField(max_length=255)
+    schema_name = models.CharField(max_length=255)
     column_separator = models.CharField(max_length=255)
     string_character = models.CharField(max_length=255)
     modified = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.schema_name
     
 
 class Column(models.Model):

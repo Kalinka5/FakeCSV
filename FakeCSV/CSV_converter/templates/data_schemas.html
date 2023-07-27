@@ -31,10 +31,10 @@
                 {% for schema in schemas %}
                 <tr id="schema-row-{{ schema.id }}">
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td name="title">{{ schema.name }}</td>
+                    <td name="title">{{ schema.schema_name }}</td>
                     <td>{{ schema.modified }}</td>
                     <td>
-                        <a href="{% url 'data_sets' name=schema.name %}">Data sets</a>
+                        <a href="{% url 'data_sets' name=schema.schema_name %}">Data sets</a>
                         <button class="btn btn-link text-danger delete-schema-btn" data-schema-id="{{ schema.id }}" type="button">Delete</button>
                     </td>
                 </tr>

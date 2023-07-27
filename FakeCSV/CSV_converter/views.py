@@ -11,6 +11,7 @@ import os
 import random
 import csv
 
+from .forms import SchemaForm
 from .models import Schema, Column, IntegerColumn, File
 
 
@@ -42,15 +43,12 @@ def generate_fake_data(all_columns, faker):
 
 
 def delete_files(prefix):
-    # Get a list of all files in the specified folder
     folder_path = "media"
     files = os.listdir(folder_path)
 
-    # Iterate through each file and check if its name starts with the given prefix
     for file in files:
         file_path = os.path.join(folder_path, file)
         if os.path.isfile(file_path) and file.startswith(prefix) and len(file) > len(prefix) and file[len(prefix)].isdigit():
-            # If the conditions are met, delete the file
             try:
                 os.remove(file_path)
             except OSError as e:
@@ -74,7 +72,7 @@ class DataSchemasView(View):
             schema_id = self.request.POST.get('schema_id')
             try:
                 schema = Schema.objects.get(pk=schema_id)
-                schema_name = schema.name
+                schema_name = schema.schema_name
                 delete_files(schema_name)
                 schema.delete()
                 return JsonResponse({'success': True})
@@ -89,16 +87,9 @@ class NewSchemaView(View):
         return render(self.request, self.template_name, {})
 
     def post(self, *args, **kwargs):
-        if self.request.POST["submit"] == "Submit":
-            schema_name = self.request.POST.get("schema_name")
-            separator = self.request.POST.get("separator")
-            character = self.request.POST.get("character")
-            schema = Schema(
-                name=schema_name,
-                column_separator=separator,
-                string_character=character,
-            )
-            schema.save()
+        schema_form = SchemaForm(self.request.POST)
+        if schema_form.is_valid():
+            schema = schema_form.save()
 
             column_name_list = self.request.POST.getlist("column_name")
             column_type_list = self.request.POST.getlist("type")
@@ -125,7 +116,7 @@ class NewSchemaView(View):
                         schema=schema
                     )
                 
-            return redirect(f"/data-sets/{schema.name}/")
+            return redirect(f"/data-sets/{schema.schema_name}/")
 
 
 class DataSetsView(View):
@@ -135,13 +126,13 @@ class DataSetsView(View):
     def get(self, *args, **kwargs):
         name = kwargs.get('name')
         if name:
-            schema = get_object_or_404(Schema, name=name)
+            schema = get_object_or_404(Schema, schema_name=name)
             columns = schema.column_set.all()
             files = schema.file_set.all()
         else:
             columns = ''
             files = ''
-        schema_dict = {"schema_name": schema.name, "columns": columns, "files": files}
+        schema_dict = {"schema_name": schema.schema_name, "columns": columns, "files": files}
 
         return render(self.request, self.template_name, schema_dict)
 
@@ -191,7 +182,7 @@ class EditSchemaView(View):
 
     def get(self, *args, **kwargs):
         name = kwargs.get('name')
-        schema = get_object_or_404(Schema, name=name)
+        schema = get_object_or_404(Schema, schema_name=name)
         columns = schema.column_set.all().order_by('order')
         options = ['Full name', 'Job', 'Email', 'Integer', 'Date']
         schema_dict = {"schema": schema, "columns": columns, 'options': options}

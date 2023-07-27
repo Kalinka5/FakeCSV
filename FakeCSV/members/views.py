@@ -21,8 +21,7 @@ class UserRegisterView(CreateView):
         username = self.request.POST.get("username")
         email = self.request.POST.get("email")
         if form.is_valid():
-            user = form.save()
-            login(self.request, user)
+            form.save()
             messages.success(self.request, "Registration successful." )
             return redirect("login")
         else:
