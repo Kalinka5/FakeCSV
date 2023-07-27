@@ -28,12 +28,12 @@ addColumnButton.addEventListener('click', function() {
         <div class="row">
         <div class="col">
             <label for="column_name${formCount}" class="form-label">Column name</label>
-            <input type="text" id="column_name${formCount}" name="column_name" class="form-control">
+            <input type="text" id="column_name${formCount}" name="column_name" class="form-control" placeholder="e.g. Employers">
         </div>
         <div class="col">
             <label for="column_separator${formCount}" class="form-label">Type</label>
             <select class="form-select" name="type" id="column_separator${formCount}" aria-label="Default select example">
-            <option selected>Open this select menu</option>
+            <option selected>------</option>
             <option value="1">Full name</option>
             <option value="2">Job</option>
             <option value="3">Email</option>
@@ -62,7 +62,7 @@ addColumnButton.addEventListener('click', function() {
             <input id="order${formCount}" type="text" class="form-control" name="order" value="${formCount}">
         </div>
         <div class="col">
-            <button class="btn btn-outline-danger">Delete</button>
+            <button type="button" class="btn btn-outline-danger special">Delete</button>
         </div>
         </div>
     </div>

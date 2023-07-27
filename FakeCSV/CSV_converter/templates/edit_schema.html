@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block css %}
+<link rel="preload" as="style" href="{% static 'css/delete_btn.css' %}" onload="this.rel = 'stylesheet'"/>
 <link rel="preload" as="style" href="{% static 'css/integer.css' %}" onload="this.rel = 'stylesheet'"/> 
 {% endblock %}
 
@@ -95,7 +96,7 @@
                 <input id="order{{ forloop.counter }}" type="text" class="form-control" name="order" value="{{ column.order }}">
               </div>
               <div class="col">
-                <button class="btn btn-outline-danger" type="button">Delete</button>
+                <button type="button" class="btn btn-outline-danger special">Delete</button>
               </div>
             </div>
           </div>
@@ -144,7 +145,7 @@
               <input id="order" type="text" class="form-control" name="add_order">
             </div>
             <div class="col">
-              <button class="btn btn-outline-danger">Delete</button>
+              <button type="button" class="btn btn-outline-danger special">Delete</button>
             </div>
           </div>
         </div>

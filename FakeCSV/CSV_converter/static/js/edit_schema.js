@@ -48,7 +48,7 @@ addColumnButton.addEventListener('click', function() {
             <input id="order${formCount}" type="text" class="form-control" name="order">
         </div>
         <div class="col">
-            <button class="btn btn-outline-danger">Delete</button>
+        <button type="button" class="btn btn-outline-danger special">Delete</button>
         </div>
         </div>
     </div>

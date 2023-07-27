@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block css %}
-<link rel="preload" as="style" href="{% static 'css/integer.css' %}" onload="this.rel = 'stylesheet'"/> 
+<link rel="preload" as="style" href="{% static 'css/delete_btn.css' %}" onload="this.rel = 'stylesheet'"/>
+<link rel="preload" as="style" href="{% static 'css/integer.css' %}" onload="this.rel = 'stylesheet'"/>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +15,7 @@
           <h4>New schema</h4>
           <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="schema_name">
+            <input type="text" class="form-control" name="schema_name" placeholder="e.g. Selling">
           </div>
           <div class="mb-3">
             <label for="column_separator" class="form-label">Column separator</label>
@@ -49,13 +50,14 @@
           <div class="row">
             <div class="col">
               <label for="column_name" class="form-label">Column name</label>
-              <input type="text" id="column_name" name="add_column_name" class="form-control">
+              <input type="text" id="column_name" name="add_column_name" class="form-control" placeholder="e.g. Employers">
               <br>
               <button type="button" id="add-column-button" name="submit" class="btn btn-primary">Add column</button>
             </div>
             <div class="col">
               <label for="type">Type</label>
               <select class="form-select" name="type" id="type" aria-label="Type">
+                <option selected>------</option>
                 <option value="1">Full name</option>
                 <option value="2">Job</option>
                 <option value="3">Email</option>
@@ -84,7 +86,7 @@
               <input id="order" type="text" class="form-control" name="add_order">
             </div>
             <div class="col">
-              <button class="btn btn-outline-danger">Delete</button>
+              <button type="button" class="btn btn-outline-danger special">Delete</button>
             </div>
           </div>
         </div>
