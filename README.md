@@ -62,7 +62,7 @@
   - <b>➕ Add a New Column</b>: Users can click on the "Add Column" button to add a new column to the schema.
   - <b>💾 Save the Schema</b>: Users can click on the "Submit" button to save the schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/5d53e938-e4d7-494d-9063-e78fc9600f4e)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/94811bc9-aaa5-467f-b98a-ee44c314b714)
 
 <hr>
 
@@ -87,7 +87,7 @@
   - <b>✏️ Edit Columns</b>: Users can modify the column details (name, type, etc.) and click on the "Submit" button to save the changes.
   - <b>❌ Delete Columns</b>: Users can click on the "Delete" button to delete the column.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/5005d4ab-1dfc-40bd-b40f-36ae3270c3ee)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/90a5ea33-e01f-4625-9f52-f113a2f33847)
 
 <hr>
 
