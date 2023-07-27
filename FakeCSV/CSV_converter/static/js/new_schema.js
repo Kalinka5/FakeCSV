@@ -19,7 +19,6 @@ let columnFormsContainer = document.querySelector('#columns-container');
 let formCount = 1;
 
 addColumnButton.addEventListener('click', function() {
-    formCount++;
 
     let columnForm = document.createElement('div');
     columnForm.className = 'card-body';
@@ -60,7 +59,7 @@ addColumnButton.addEventListener('click', function() {
         </div>
         <div class="col">
             <label for="order${formCount}" class="form-label">Order</label>
-            <input id="order${formCount}" type="text" class="form-control" name="order">
+            <input id="order${formCount}" type="text" class="form-control" name="order" value="${formCount}">
         </div>
         <div class="col">
             <button class="btn btn-outline-danger">Delete</button>
@@ -76,6 +75,8 @@ addColumnButton.addEventListener('click', function() {
     let typeSelect = columnForm.querySelector(`#column_separator${formCount}`);
     let integerFields = columnForm.querySelector(`#integerFields${formCount}`);
 
+    formCount++;
+
     // Hide the "From" and "To" fields initially
     integerFields.classList.add('hidden-fields');
 
@@ -90,5 +91,6 @@ addColumnButton.addEventListener('click', function() {
     let deleteButton = columnForm.querySelector('.btn-outline-danger');
     deleteButton.addEventListener('click', function() {
         columnForm.remove();
+        formCount--;
     });
 });
