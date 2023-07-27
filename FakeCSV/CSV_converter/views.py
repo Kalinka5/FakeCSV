@@ -61,35 +61,38 @@ def home(request):
     return render(request, "home.html", {})
 
 
-@login_required
-def data_schemas(request):
+class DataSchemasView(View):
+    template_name = "data_schemas.html"
 
-    if request.method == 'POST' and request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-        schema_id = request.POST.get('schema_id')
-        try:
-            schema = Schema.objects.get(pk=schema_id)
-            schema_name = schema.name
-            delete_files(schema_name)
-            schema.delete()
-            return JsonResponse({'success': True})
-        except Schema.DoesNotExist:
-            return JsonResponse({'success': False, 'error': 'Schema not found.'})
+    def get(self, *args, **kwargs):
+        data_schemas = Schema.objects.filter(user=self.request.user)
+        data_schemas_dict = {'schemas': data_schemas}
+        return render(self.request, self.template_name, data_schemas_dict)
 
-    data_schemas = Schema.objects.filter(user=request.user)
-    data_schemas_dict = {'schemas': data_schemas}
-    return render(request, "data_schemas.html", data_schemas_dict)
+    def post(self, *args, **kwargs):
+        if self.request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+            schema_id = self.request.POST.get('schema_id')
+            try:
+                schema = Schema.objects.get(pk=schema_id)
+                schema_name = schema.name
+                delete_files(schema_name)
+                schema.delete()
+                return JsonResponse({'success': True})
+            except Schema.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Schema not found.'})
 
 
-@login_required
-def new_schema(request):
+class NewSchemaView(View):
+    template_name = "new_schema.html"
 
-    if request.method == "POST":
+    def get(self, *args, **kwargs):
+        return render(self.request, self.template_name, {})
 
-        if request.POST["submit"] == "Submit":
-            
-            schema_name = request.POST.get("schema_name")
-            separator = request.POST.get("separator")
-            character = request.POST.get("character")
+    def post(self, *args, **kwargs):
+        if self.request.POST["submit"] == "Submit":
+            schema_name = self.request.POST.get("schema_name")
+            separator = self.request.POST.get("separator")
+            character = self.request.POST.get("character")
             schema = Schema(
                 name=schema_name,
                 column_separator=separator,
@@ -97,11 +100,11 @@ def new_schema(request):
             )
             schema.save()
 
-            column_name_list = request.POST.getlist("column_name")
-            column_type_list = request.POST.getlist("type")
-            column_order_list = request.POST.getlist("order")
-            integer_from_list = request.POST.getlist("from[]")
-            integer_to_list = request.POST.getlist("to[]")
+            column_name_list = self.request.POST.getlist("column_name")
+            column_type_list = self.request.POST.getlist("type")
+            column_order_list = self.request.POST.getlist("order")
+            integer_from_list = self.request.POST.getlist("from[]")
+            integer_to_list = self.request.POST.getlist("to[]")
             zip_lists = zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list)
             
             for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
@@ -124,8 +127,6 @@ def new_schema(request):
                 
             return redirect(f"/data-sets/{schema.name}/")
 
-    return render(request, "new_schema.html")
-
 
 class DataSetsView(View):
     template_name = "data_sets.html"
@@ -140,8 +141,9 @@ class DataSetsView(View):
         else:
             columns = ''
             files = ''
+        schema_dict = {"schema_name": schema.name, "columns": columns, "files": files}
 
-        return render(self.request, self.template_name, {"schema_name": schema.name, "columns": columns, "files": files})
+        return render(self.request, self.template_name, schema_dict)
 
     def post(self, *args, **kwargs):
         name = kwargs.get('name')
@@ -184,15 +186,26 @@ class DataSetsView(View):
         return JsonResponse({"error": ""}, status=400)
 
 
-def edit_schema(request, name):
+class EditSchemaView(View):
+    template_name = "edit_schema.html"
 
-    if request.method == "POST":
+    def get(self, *args, **kwargs):
+        name = kwargs.get('name')
+        schema = get_object_or_404(Schema, name=name)
+        columns = schema.column_set.all().order_by('order')
+        options = ['Full name', 'Job', 'Email', 'Integer', 'Date']
+        schema_dict = {"schema": schema, "columns": columns, 'options': options}
 
-        if request.POST["submit"] == "Submit":
-            
-            schema_name = request.POST.get("schema_name")
-            separator = request.POST.get("separator")
-            character = request.POST.get("character")
+        return render(self.request, self.template_name, schema_dict)
+
+
+    def post(self, *args, **kwargs):
+        if self.request.POST["submit"] == "Submit":
+
+            name = kwargs.get('name')
+            schema_name = self.request.POST.get("schema_name")
+            separator = self.request.POST.get("separator")
+            character = self.request.POST.get("character")
 
             schema = get_object_or_404(Schema, name=name)
             schema.name = schema_name
@@ -204,11 +217,11 @@ def edit_schema(request, name):
             for column in columns_to_delete:
                 column.delete()
 
-            column_name_list = request.POST.getlist("column_name")
-            column_type_list = request.POST.getlist("type")
-            column_order_list = request.POST.getlist("order")
-            integer_from_list = request.POST.getlist("from[]")
-            integer_to_list = request.POST.getlist("to[]")
+            column_name_list = self.request.POST.getlist("column_name")
+            column_type_list = self.request.POST.getlist("type")
+            column_order_list = self.request.POST.getlist("order")
+            integer_from_list = self.request.POST.getlist("from[]")
+            integer_to_list = self.request.POST.getlist("to[]")
             zip_lists = zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list)
             for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
                 if column_type == "4":
@@ -229,9 +242,3 @@ def edit_schema(request, name):
                     )
                 
             return redirect(f"/data-sets/{schema.name}/")
-
-    schema = get_object_or_404(Schema, name=name)
-    columns = schema.column_set.all().order_by('order')
-    options = ['Full name', 'Job', 'Email', 'Integer', 'Date']
-
-    return render(request, "edit_schema.html", {"schema": schema, "columns": columns, 'options': options})
