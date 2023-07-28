@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404
-from django.template import RequestContext
 
 from faker import Faker
 

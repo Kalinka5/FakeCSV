@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -34,7 +35,16 @@ class UserRegisterView(CreateView):
 class UserProfileView(UpdateView):
     form_class = ProfileForm
     template_name = "registration/profile.html"
-    success_url = reverse_lazy('data_schemas')
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        return self.request.user
+    
+
+class DeleteUserView(DeleteView):
+    model = User
+    template_name = "registration/delete_account.html"
+    success_url = reverse_lazy('login')
 
     def get_object(self):
         return self.request.user
