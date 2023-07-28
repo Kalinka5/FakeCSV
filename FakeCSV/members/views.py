@@ -3,7 +3,6 @@ from django.contrib.auth.views import PasswordChangeView
 from django.views.generic.edit import CreateView
 from django.views.generic import UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth import login
 from django.contrib import messages
 
 from .forms import NewUserForm, ProfileForm, PasswordChangingForm

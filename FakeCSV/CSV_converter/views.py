@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import JsonResponse
 from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404
+from django.template import RequestContext
 
 from faker import Faker
 
@@ -115,7 +116,8 @@ class NewSchemaView(View):
                         order=column_order,
                         schema=schema
                     )
-                
+            
+            messages.success(self.request, "The schema was created successfully.")
             return redirect(f"/data-sets/{schema.schema_name}/")
 
 

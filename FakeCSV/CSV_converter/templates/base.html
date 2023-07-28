@@ -24,7 +24,15 @@
   {% include 'partials/_header.html' %}
 
   <main role="main">
-    <div class="container center-content">
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}}">
+            {{message}}
+          </div>
+        {% endfor %}
+      {% endif %}
+      
       {% block content %}
       {% endblock %}
     </div>
