@@ -1,0 +1,19 @@
+/* Set gradient background */
+body {
+    background: linear-gradient(to right, rgb(129, 219, 249), rgb(200, 201, 200)); /* Change this to the desired shades of light blue and green */
+  }
+  
+  /* Make the page content overflow */
+  main {
+    overflow: visible;
+  }
+  
+  .container {
+    overflow: visible;
+  }
+  
+  /* If you want the footer to also have the same gradient background */
+  footer {
+    background: linear-gradient(to right, rgb(129, 219, 249), rgb(200, 201, 200)); /* Change this to the desired shades of light blue and green */
+  }
+  

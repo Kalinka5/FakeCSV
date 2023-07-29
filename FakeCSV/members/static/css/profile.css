@@ -1,8 +1,8 @@
-.student-profile .card {
+.profile .card {
   border-radius: 10px;
 }
 
-.student-profile .card .card-header .profile-picture {
+.profile .card .card-header .profile-picture {
   width: 150px;
   height: 150px;
   object-fit: cover;
@@ -11,7 +11,7 @@
   border-radius: 50%;
 }
 
-.student-profile .card h3 {
+.profile .card h3 {
   font-size: 20px;
   font-weight: 700;
 }
@@ -21,8 +21,8 @@
   color: #000;
 }
 
-student-profile .table th,
-.student-profile .table td {
+profile .table th,
+.profile .table td {
     font-size: 14px;
     padding: 5px 10px;
     color: #000;
