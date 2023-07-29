@@ -24,7 +24,7 @@
 - <b>URL</b>: `/members/login/`
 - <b>Description</b>: Provides users with a secure and convenient way to access their accounts.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/65f2be6f-6907-4a99-bc24-c505cb84121c)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/aee63f42-b0cc-4ca3-9de6-9a17995b91f2)
 
 <hr>
 
@@ -33,7 +33,7 @@
 - <b>URL</b>: `/members/register/`
 - <b>Description</b>: Provide their personal details, including name, email address, and password.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/34da444e-3f01-49b7-8026-b6ab07a4f4ab)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/11ad6a0e-92b5-4311-aa43-8419529963e2)
 
 <hr>
 
@@ -46,7 +46,7 @@
   - <b>📚 Access Data Sets</b>: Explore data sets of existing schemas.
   - <b>❌ Delete Schema</b>: Remove an already created schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/ac301ba2-1fa4-4326-975a-8e264522273d)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/94c1b668-0ef9-48b8-a2f8-25c2f039b2f2)
 
 <hr>
 
@@ -62,7 +62,7 @@
   - <b>➕ Add a New Column</b>: Users can click on the "Add Column" button to add a new column to the schema.
   - <b>💾 Save the Schema</b>: Users can click on the "Submit" button to save the schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/94811bc9-aaa5-467f-b98a-ee44c314b714)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/f82c34ba-44dd-4629-b96d-547219d21d47)
 
 <hr>
 
@@ -74,7 +74,7 @@
   - <b>📊 Generate Data</b>: Users can enter the number of rows to generate and click on the "Generate data" button to generate data.
   - <b>⬇️ Download Data</b>: Users can click on the "Download" button to download the generated data as a CSV file.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/db1dd59b-f4ce-4a81-aad0-312a5a170dad)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/e3383094-65a2-403e-9be4-47390c74936f)
 
 <hr>
 
@@ -87,7 +87,7 @@
   - <b>✏️ Edit Columns</b>: Users can modify the column details (name, type, etc.) and click on the "Submit" button to save the changes.
   - <b>❌ Delete Columns</b>: Users can click on the "Delete" button to delete the column.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/90a5ea33-e01f-4625-9f52-f113a2f33847)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/bc5358a3-720d-4d77-8d44-3c4a7cec2375)
 
 <hr>
 
@@ -96,7 +96,7 @@
 - <b>URL</b>: `/members/profile/`
 - <b>Description</b>: The profile web page is a user-centric space for managing personal information and preferences within the platform.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/85517ac1-d2e8-48c5-b572-ef13d3b18a15)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/a8ce26b7-0c9d-4313-8429-dbc32943d176)
 
 <hr>
 
@@ -105,7 +105,16 @@
 - <b>URL</b>: `/members/password/`
 - <b>Description</b>: Web page enables users to update their account's password securely for enhanced online security.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/031df2ba-e255-4ffc-97e2-0e93139ef02f)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/0008fc56-a6ff-426a-b5e8-5cd639fd21f8)
+
+<hr>
+
+### Delete account
+
+- <b>URL</b>: `/members/profile/delete`
+- <b>Description</b>: Allows users to permanently remove their accounts from the system.
+
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/92463d0c-472c-4576-9e80-6c8625dcc637)
 
 <hr>
 
