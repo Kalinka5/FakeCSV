@@ -199,7 +199,7 @@ class EditSchemaView(View):
             separator = self.request.POST.get("separator")
             character = self.request.POST.get("character")
 
-            schema = get_object_or_404(Schema, name=name)
+            schema = get_object_or_404(Schema, schema_name=name)
             schema.name = schema_name
             schema.column_separator = separator
             schema.string_character = character
@@ -233,4 +233,4 @@ class EditSchemaView(View):
                         schema=schema
                     )
                 
-            return redirect(f"/data-sets/{schema.name}/")
+            return redirect(f"/data-sets/{schema.schema_name}/")
