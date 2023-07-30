@@ -2,46 +2,85 @@
 {% load static %}
 
 {% block css %}
-<link rel="preload" as="style" href="{% static 'css/data_sets.css' %}" onload="this.rel = 'stylesheet'"/> 
+<link rel="preload" as="style" href="{% static 'css/home.css' %}" onload="this.rel = 'stylesheet'"/> 
 {% endblock %}
 
 {% block content %}
-<div class="container p-3">
-    <h2>Welcome to FakeCSV - Your Custom Data Schema Generator!</h2>
-
-    <h3>Create, Generate, and Manage Fake Data with Ease</h3>
-
-    <p>FakeCSV is a powerful Django web application designed to empower users with the ability to effortlessly build custom data schemas and generate fake data based on their specific requirements. Whether you're a developer, data scientist, or simply need realistic placeholder data for testing, FakeCSV has got you covered.</p>
-
-    <h4>Key Features:</h4>
-    <ol>
-        <li>
-            <b>User-Friendly Login and Register pages:</b>
-            <p>Seamlessly access your personalized dashboard by logging into your account. Your data schemas and generated datasets are securely stored for easy access whenever you need them.</p>
-        </li>
-        <li>
-            <b>Intuitive Data Schema Creation:</b>
-            <p>With FakeCSV, you have the flexibility to design data schemas exactly as you envision them. Create any number of columns and choose from a wide range of column types, including text, numbers, dates, booleans, and more.</p>
-        </li>
-        <li>
-            <b>Customizable Options:</b>
-            <p>Tailor your data schema to your exact needs with various customizable options for each column. Define min/max values, date formats, string patterns, and other parameters to ensure the generated fake data aligns perfectly with your use case.</p>        
-        </li>
-        <li>
-            <b>Manage Your Data Schemas:</b>
-            <p>View and organize all your existing data schemas in one place. Easily edit or delete schemas as your requirements evolve, ensuring seamless data management.</p>        
-        </li>
-        <li>
-            <b>Effortless Data Generation:</b>
-            <p>Once you've designed your data schema, FakeCSV empowers you to create large datasets with a single click. Generate realistic fake data in the blink of an eye for quick prototyping, testing, or any other data-related tasks.</p>        
-        </li>
-    </ol>
-               
-    <h4>Experience the Power of FakeCSV Today:</h4>
-    <p>Join our ever-growing community of developers, data enthusiasts, and testers who rely on FakeCSV for fast and accurate data generation. Say goodbye to tedious manual data entry and start harnessing the potential of FakeCSV for all your fake data needs.</p>
+<div class="upper">
+  <div class="upper-text">
+    <h1 class="display-4">Welcome to FakeCSV!</h1>
+    <p class="lead">Create new schemas with customizable options and build data schemas with any number of columns of any type.</p>
     {% if user.is_authenticated %}
-    {% else %}   
-    <p><a href="{% url 'register' %}">Sign up</a> now to embark on a data generation journey like never before!</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'data_schemas' %}" role="button">Get Started</a>
+    {% else %}
+    <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Get Started</a>
     {% endif %}
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h2 class="text-center">Why Choose FakeCSV?</h2>
+    <div class="row section-content">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon text-center">
+            <span class="bi bi-puzzle"></span>
+          </div>
+          <h3 class="text-center">Flexible Schema Creation</h3>
+          <p>Create new data schemas with ease. Define the columns and their data types effortlessly.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon text-center">
+            <span class="bi bi-code"></span>
+          </div>
+          <h3 class="text-center">Customizable Options</h3>
+          <p>Customize your data schema with additional constraints and options as per your requirements.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon text-center">
+            <span class="bi bi-table"></span>
+          </div>
+          <h3 class="text-center">Build Data Schema</h3>
+          <p>Build your data schema by adding any number of columns of different types. Edit and manage them easily.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container section-content">
+  <h2 class="text-center">How It Works</h2>
+  <div class="row">
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="d-flex h-100 align-items-center">
+                <div>
+                    <h3>Step 1: Create Schema</h3>
+                    <p>Start by creating a new data schema. Define the column names, data types, and constraints.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/image_1.jpg' %}" alt="Step 1" class="img-fluid rounded">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <img src="{% static 'images/image_2.jpg' %}" alt="Step 2" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex h-100 align-items-center">
+                <div>
+                    <h3>Step 2: Build Data Schema</h3>
+                    <p>Build your data schema by adding columns. You can also modify, delete, or rearrange them as needed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

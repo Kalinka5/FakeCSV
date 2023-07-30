@@ -140,8 +140,8 @@ class DataSetsView(View):
     def post(self, *args, **kwargs):
         name = kwargs.get('name')
         if self.request.method == "POST":
-            schema = get_object_or_404(Schema, name=name)
-            schema_name = schema.name
+            schema = get_object_or_404(Schema, schema_name=name)
+            schema_name = schema.schema_name
             schema_delimeter = schema.column_separator
             schema_character = schema.string_character
 
