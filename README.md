@@ -4,20 +4,29 @@
 ![GitHub](https://img.shields.io/github/license/Kalinka5/FakeCSV?color=blue)
 
 
-<b>📊 FakeCSV</b> is a <b><i>Django application</i></b> that allows users to create custom <b><i>data schemas</i></b> with various column types and generate <b><i>fake data</i></b> based on those schemas. Users can <b><i>log in</i></b> to the app, <b><i>create new schemas</i></b> with customizable options, and build the data schema with <b><i>any number of columns</i></b> of any type. The app provides five pages for user interaction, <i>including login</i>, <i>data schemas</i>, <i>new schema creation</i>, <i>data set display</i>, and <i>schema editing</i>.
+<b>📊 FakeCSV</b> is a <b><i>Django application</i></b> that allows users to create custom <b><i>data schemas</i></b> with various column types and generate <b><i>fake data</i></b> based on those schemas. Users can <b><i>log in</i></b> to the app, <b><i>create new schemas</i></b> with customizable options, and build the data schema with <b><i>any number of columns</i></b> of any type. The app provides twelve pages for user interaction, <i>including login</i>, <i>data schemas</i>, <i>new schema creation</i>, <i>data set display</i>, <i>schema editing</i>, <i>register</i>, <i>home</i>, <i>profile</i>, <i>profile/change_password</i>, <i>profile/delete</i>, and <i>password success</i>.
 
 ## Features
 
-- <b>🔐 User Authentication</b>: Securely log in to the app and register page.
+- <b>🔐 User Authentication</b>: Securely log in to the app and register page. This app has a Register page where users can register new accounts.
 - <b>🗄️ Schema Management</b>: <i>Create</i>, <i>edit</i>, and <i>delete</i> data schemas.
 - <b>📝 Column Management</b>: <i>Add</i>, <i>edit</i>, and <i>delete</i> columns in a schema.
 - <b>🎨 Customizable Options</b>: Personalize schemas with custom <i>names</i>, <i>column separators</i>, and <i>string characters</i>.
 - <b>🔢 Column Types</b>: Choose from a variety of column types, including <i>'Full name'</i>, <i>'Job'</i>, <i>'Email'</i>, <i>'Integer'</i>, and <i>'Date'</i>.
 - <b>🔄 Data Generation</b>: Generate realistic <i>fake data</i> based on defined schemas.
 - <b>⬇️ Data Download</b>: Download generated data as a <i>CSV file</i>.
-- <b>👤 User Profile</b>: Manage and update <i>personal information</i> and preferences through the user profile page.
+- <b>👤 User Profile</b>: Manage and update <i>personal information</i> and preferences through the user profile page. In the Profile page, users can click on a link to change their passwords on another page. Additionally, users can delete their accounts on the /members/profile/delete page. When users successfully change their passwords, they will be redirected to the <i>password success</i> page.
 
 ## Pages
+
+### Home
+
+- <b>URL</b>: ``
+- <b>Description</b>: Allows users to understand its functionalities and purpose at a glance.
+
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/611a0bd9-dd4a-4934-b81e-d8c3cb9c36e6)
+
+<hr>
 
 ### Login
 
@@ -105,7 +114,7 @@
 - <b>URL</b>: `/members/password/`
 - <b>Description</b>: Web page enables users to update their account's password securely for enhanced online security.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/0008fc56-a6ff-426a-b5e8-5cd639fd21f8)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/cc13d704-45d6-47b9-907f-c7439ee6f1f7)
 
 <hr>
 
