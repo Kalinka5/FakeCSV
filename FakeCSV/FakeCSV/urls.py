@@ -12,7 +12,7 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = 'CSV_converter.views.handler404'
-handler500 = 'CSV_converter.views.handler500'
-handler403 = 'CSV_converter.views.handler403'
-handler400 = 'CSV_converter.views.handler400'
+handler404 = 'error_pages.views.handler404'
+handler500 = 'error_pages.views.handler500'
+handler403 = 'error_pages.views.handler403'
+handler400 = 'error_pages.views.handler400'

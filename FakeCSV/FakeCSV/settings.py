@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'CSV_converter',
+    'members',
+    'error_pages',
     'bootstrap5',
     'faker',
 ]
@@ -58,7 +60,11 @@ ROOT_URLCONF = 'FakeCSV.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['CSV_converter/templates', 'members/templates'],
+        'DIRS': [
+            'CSV_converter/templates', 
+            'members/templates',
+            'error_pages/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
