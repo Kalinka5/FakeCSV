@@ -1,0 +1,6 @@
+/* Style to make the select dropdown arrow white */
+.transparent-card {
+    background-color: transparent;
+    border-width: 3px;
+    border-color: white;
+  }

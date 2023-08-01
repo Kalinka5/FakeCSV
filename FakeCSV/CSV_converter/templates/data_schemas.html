@@ -34,8 +34,8 @@
                     <td name="title">{{ schema.schema_name }}</td>
                     <td>{{ schema.modified }}</td>
                     <td>
-                        <a href="{% url 'data_sets' name=schema.schema_name %}">Data sets</a>
-                        <button class="btn btn-link text-danger delete-schema-btn" data-schema-id="{{ schema.id }}" type="button">Delete</button>
+                        <a href="{% url 'data_sets' name=schema.schema_name %}" class="btn btn-outline-primary">Data sets</a>
+                        <button class="btn btn-outline-danger delete-schema-btn ms-3" data-schema-id="{{ schema.id }}" type="button">Delete</button>
                     </td>
                 </tr>
                 {% endfor %}

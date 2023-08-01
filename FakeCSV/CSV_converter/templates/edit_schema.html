@@ -4,6 +4,7 @@
 {% block css %}
 <link rel="preload" as="style" href="{% static 'css/delete_btn.css' %}" onload="this.rel = 'stylesheet'"/>
 <link rel="preload" as="style" href="{% static 'css/integer.css' %}" onload="this.rel = 'stylesheet'"/> 
+<link rel="preload" as="style" href="{% static 'css/new_column.css' %}" onload="this.rel = 'stylesheet'"/>
 {% endblock %}
 
 {% block content %}
@@ -104,19 +105,20 @@
         </div>
       {% endfor %}
     </div>
-    <div class="card mb-3">
+    <div class="card mb-3 transparent-card">
       <div class="card-body">
         <div class="container text-left">
           <div class="row">
             <div class="col">
               <label for="column_name" class="form-label">Column name</label>
-              <input type="text" id="column_name" name="add_column_name" class="form-control">
+              <input type="text" id="column_name" name="add_column_name" class="form-control" placeholder="e.g. Employers">
               <br>
               <button type="button" id="add-column-button" name="submit" class="btn btn-primary">Add column</button>
             </div>
             <div class="col">
               <label for="type">Type</label>
               <select class="form-select" name="type" id="type" aria-label="Type">
+                <option selected>------</option>
                 <option value="1">Full name</option>
                 <option value="2">Job</option>
                 <option value="3">Email</option>

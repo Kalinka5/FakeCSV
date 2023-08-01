@@ -4,6 +4,7 @@
 {% block css %}
 <link rel="preload" as="style" href="{% static 'css/delete_btn.css' %}" onload="this.rel = 'stylesheet'"/>
 <link rel="preload" as="style" href="{% static 'css/integer.css' %}" onload="this.rel = 'stylesheet'"/>
+<link rel="preload" as="style" href="{% static 'css/new_column.css' %}" onload="this.rel = 'stylesheet'"/>
 {% endblock %}
 
 {% block content %}
@@ -44,7 +45,7 @@
     <div id="columns-container">
       <h4>Schema columns</h4>
     </div>
-    <div class="card mb-3">
+    <div class="card mb-3 transparent-card">
       <div class="card-body">
         <div class="container text-left">
           <div class="row">
