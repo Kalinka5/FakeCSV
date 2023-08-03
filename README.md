@@ -55,7 +55,7 @@
   - <b>📚 Access Data Sets</b>: Explore data sets of existing schemas.
   - <b>❌ Delete Schema</b>: Remove an already created schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/94c1b668-0ef9-48b8-a2f8-25c2f039b2f2)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/d07c1eda-e68f-4cdb-8e2a-87f4f596c38c)
 
 <hr>
 
@@ -71,7 +71,7 @@
   - <b>➕ Add a New Column</b>: Users can click on the "Add Column" button to add a new column to the schema.
   - <b>💾 Save the Schema</b>: Users can click on the "Submit" button to save the schema.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/f82c34ba-44dd-4629-b96d-547219d21d47)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/53e1d62f-1881-4ffe-be23-aa035122259a)
 
 <hr>
 
