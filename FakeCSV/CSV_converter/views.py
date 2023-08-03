@@ -200,14 +200,13 @@ class EditSchemaView(View):
             character = self.request.POST.get("character")
 
             schema = get_object_or_404(Schema, schema_name=name)
-            schema.name = schema_name
+            schema.schema_name = schema_name
             schema.column_separator = separator
             schema.string_character = character
             schema.save()
-
-            columns_to_delete = schema.column_set.all()
-            for column in columns_to_delete:
-                column.delete()
+            
+            # Delete existing columns
+            schema.column_set.all().delete()
 
             column_name_list = self.request.POST.getlist("column_name")
             column_type_list = self.request.POST.getlist("type")

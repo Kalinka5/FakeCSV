@@ -10,7 +10,6 @@
   <div class="container center-content">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="">
           <div class="card mt-3 shadow">
             <div class="card-body">
               <form method="POST">
@@ -25,12 +24,14 @@
                 <div class="mb-3">
                   <input name="password" class="form-control" placeholder="Password" type="password">
                 </div>
-                <input class="btn float-end shadow btn-primary px-4" type="submit" value="Login">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <input class="btn shadow btn-primary px-4" type="submit" value="Login">
+                </div>
+                <p class="text-center">Forgot your password <a href="{% url 'password-reset' %}">Reset Password</a></p>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 {% endblock %}
