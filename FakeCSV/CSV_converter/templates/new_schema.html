@@ -71,12 +71,12 @@
                 <div class="container text-left">
                   <div class="row">
                     <div class="col">
-                      <label for="from${formCount}" class="form-label">From</label>
-                      <input id="from${formCount}" name="from[]" type="text" class="form-control">
+                      <label for="from" class="form-label">From</label>
+                      <input id="from" name="from[]" type="text" class="form-control">
                     </div>
                     <div class="col">
-                      <label for="to${formCount}" class="form-label">To</label>
-                      <input id="to${formCount}" name="to[]" type="text" class="form-control">
+                      <label for="to" class="form-label">To</label>
+                      <input id="to" name="to[]" type="text" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -97,5 +97,6 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{% static 'js/new_schema.js' %}"></script>
+<script src="{% static 'js/add_column.js' %}"></script>
+<script src="{% static 'js/integer_fields.js' %}"></script>
 {% endblock %}

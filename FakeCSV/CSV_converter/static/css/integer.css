@@ -1,7 +1,3 @@
 .integer-fields.hidden-fields {
     display: none;
 }
-.integer-fields.hidden-visibility {
-    visibility: hidden;
-    height: 0;
-}

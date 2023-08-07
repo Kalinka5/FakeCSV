@@ -62,7 +62,7 @@
               </div>
               <div class="col">
                 <label for="type" class="form-label">Type</label>
-                <select class="form-select" name="type" id="type">
+                <select class="form-select" name="type" id="type" aria-label="Type">
                   {% for option in options %}
                     <option value="{{ forloop.counter }}" {% if column.type|add:0 == forloop.counter %}selected{% endif %}>{{ option }}</option>
                   {% endfor %}
@@ -131,12 +131,12 @@
                 <div class="container text-left">
                   <div class="row">
                     <div class="col">
-                      <label for="from${formCount}" class="form-label">From</label>
-                      <input id="from${formCount}" name="from[]" type="text" class="form-control">
+                      <label for="from" class="form-label">From</label>
+                      <input id="from" name="from[]" type="text" class="form-control">
                     </div>
                     <div class="col">
-                      <label for="to${formCount}" class="form-label">To</label>
-                      <input id="to${formCount}" name="to[]" type="text" class="form-control">
+                      <label for="to" class="form-label">To</label>
+                      <input id="to" name="to[]" type="text" class="form-control">
                     </div>
                   </div>
                 </div>
@@ -157,5 +157,6 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{% static 'js/edit_schema.js' %}"></script>
+<script src="{% static 'js/add_column.js' %}"></script>
+<script src="{% static 'js/column_forms.js' %}"></script>
 {% endblock %}
