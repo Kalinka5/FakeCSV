@@ -33,7 +33,7 @@
 - <b>URL</b>: `/members/login/`
 - <b>Description</b>: Provides users with a secure and convenient way to access their accounts.
 
-![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/aee63f42-b0cc-4ca3-9de6-9a17995b91f2)
+![image](https://github.com/Kalinka5/FakeCSV/assets/106172806/7534ddbb-abb6-4051-9183-95f6a23528e1)
 
 <hr>
 
