@@ -51,8 +51,8 @@ class File(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
-    
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     picture = models.ImageField(null=True, blank=True, upload_to='images/profile/')

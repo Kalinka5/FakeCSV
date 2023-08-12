@@ -2,6 +2,8 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
+from CSV_converter.models import Profile
+
 
 class NewUserForm(UserCreationForm):
 	email = forms.EmailField(required=True)
@@ -26,6 +28,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
+
+class ProfileImgForm(forms.ModelForm):
+    picture = forms.ImageField(label="Profile Picture")
+
+    class Meta:
+        model = Profile
+        fields = ('picture',)
 
 
 class PasswordChangingForm(PasswordChangeForm):

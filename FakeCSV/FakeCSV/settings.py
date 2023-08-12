@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # apps
     'CSV_converter',
     'members',
     'error_pages',
+    # libraries
     'bootstrap5',
     'faker',
 ]

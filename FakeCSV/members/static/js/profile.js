@@ -1,22 +1,21 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const profileImage = document.getElementById('profile-image');
-    const fileInput = document.createElement('input');
-    fileInput.setAttribute('type', 'file');
-    fileInput.style.display = 'none';
-  
-    profileImage.addEventListener('click', function () {
-      fileInput.click();
-    });
-  
-    fileInput.addEventListener('change', function () {
-      if (fileInput.files && fileInput.files[0]) {
+const pictureInput = document.getElementById('id_picture');
+const imagePreview = document.getElementById('imagePreview');
+
+pictureInput.addEventListener('change', function () {
+    const file = pictureInput.files[0];
+    if (file) {
         const reader = new FileReader();
-  
         reader.onload = function (e) {
-          profileImage.src = e.target.result;
+            const image = document.createElement('img');
+            image.src = e.target.result;
+            image.alt = 'Profile picture';
+            image.className = 'rounded-circle profile-picture';
+            image.style.width = '100px';
+            imagePreview.innerHTML = ''; // Clear any previous previews
+            imagePreview.appendChild(image);
         };
-  
-        reader.readAsDataURL(fileInput.files[0]);
-      }
-    });
-  });
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.innerHTML = '';
+    }
+});

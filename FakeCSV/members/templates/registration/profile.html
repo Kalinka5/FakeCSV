@@ -12,12 +12,11 @@
       <div class="col-lg-4">
         <div class="card shadow-sm">
           <div class="card-header bg-transparent text-center">
-            {% if user.profile.picture %}
-              <img id="profile-image" src="{{ user.profile.picture.url }}" class="rounded-circle profile-picture" alt="Profile picture" width="100px">
-            {% else %}
-              <img id="profile-image" src="{% static 'images/default_profile.png' %}" class="profile-picture" alt="Profile picture" width="100px">
-            {% endif %}
-            <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+            <img id="profile-image" src="{% if user.profile.picture %}{{ user.profile.picture.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" class="rounded-circle profile-picture" alt="Profile picture" width="100px">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProfileImage">
+              Update Profile Image
+            </button>
           </div>
         </div>
       </div>
@@ -26,56 +25,77 @@
             <div class="card-header bg-transparent border-0">
               <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Profile Information</h3>
             </div>
-            <form method="POST">
-              {% csrf_token %}
-              <div class="card-body pt-0">
-                <table class="table table-bordered">
-                  <tr>
-                    <th width="30%">Username</th>
-                    <td width="2%">:</td>
-                    <td><input name="username" class="form-control form-control-sm" type="text" placeholder="Username" value="{{ user.username }}"></td>
-                  </tr>
-                  <tr>
-                    <th width="30%">First name</th>
-                    <td width="2%">:</td>
-                    <td><input name="first_name" class="form-control form-control-sm" type="text" placeholder="Firstname" value="{{ user.first_name }}"></td>
-                  </tr>
-                  <tr>
-                    <th width="30%">Last name</th>
-                    <td width="2%">:</td>
-                    <td><input name="last_name" class="form-control form-control-sm" type="text" placeholder="Lastname" value="{{ user.last_name }}"></td>
-                  </tr>
-                  <tr>
-                    <th width="30%">Email</th>
-                    <td width="2%">:</td>
-                    <td><input name="email" class="form-control form-control-sm" type="text" placeholder="Email" value="{{ user.email }}"></td>
-                  </tr>
-                </table>
-                <div class="container text-left p-3">
-                  <div class="row">
-                    <div class="col-8">
-                      <p>You can change the password using <a href="{% url 'change_password' %}">this form</a>.</p>
-                    </div>
-                    <div class="col-4">
-                      <div class="d-grid gap-2 d-md-flex justify-content-evenly">
-                        <input class="btn shadow btn-primary px-4" type="submit" value="Update">
-                      </div>
+            <div class="card-body pt-0">
+              <table class="table table-bordered">
+                <tr>
+                  <th width="30%">Username</th>
+                  <td width="2%">:</td>
+                  <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                  <th width="30%">First name</th>
+                  <td width="2%">:</td>
+                  <td>{{ user.first_name }}</td>
+                </tr>
+                <tr>
+                  <th width="30%">Last name</th>
+                  <td width="2%">:</td>
+                  <td>{{ user.last_name }}</td>
+                </tr>
+                <tr>
+                  <th width="30%">Email</th>
+                  <td width="2%">:</td>
+                  <td>{{ user.email }}</td>
+                </tr>
+              </table>
+              <div class="container text-left p-3">
+                <div class="row">
+                  <div class="col-8">
+                    <p>You can change the password using <a href="{% url 'change_password' %}">this form</a>.</p>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-grid gap-2 d-md-flex justify-content-evenly">
+                      <a class="btn btn-primary" href="{% url 'edit_profile' %}" role="button">Update Profile</a>
                     </div>
                   </div>
                 </div>
-                <div class="text-center py-2">
-                  <small>
-                    <a href="{% url 'account_delete' %}" class="link-danger active">Delete your account</a>
-                  </small>
-                </div>
               </div>
-            </form>
+              <div class="text-center py-2">
+                <small>
+                  <a href="{% url 'account_delete' %}" class="link-danger active">Delete your account</a>
+                </small>
+              </div>
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="modal fade" id="ProfileImage" tabindex="-1" aria-labelledby="ProfileImageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ProfileImageLabel">Edit Profile Picture</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Change to:</h4>
+          <input name="picture" type="file" name="picture" accept="image/*" id="id_picture">
+          <div id="imagePreview"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 {% endblock %}
 
 {% block js %}
