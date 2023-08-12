@@ -7,7 +7,7 @@
 <b>📊 FakeCSV</b> is a <b><i>Django application</i></b> that allows users to create custom <b><i>data schemas</i></b> with various column types and generate <b><i>fake data</i></b> based on those schemas. Users can <b><i>log in</i></b> to the app, <b><i>create new schemas</i></b> with customizable options, and build the data schema with <b><i>any number of columns</i></b> of any type. The app provides twelve pages for user interaction, <i>including login</i>, <i>data schemas</i>, <i>new schema creation</i>, <i>data set display</i>, <i>schema editing</i>, <i>register</i>, <i>home</i>, <i>profile</i>, <i>profile/change_password</i>, <i>profile/delete</i>, and <i>password success</i>.
 
 ## Usage
-I deployed this Django project in the <a href="https://www.pythonanywhere.com/" target="_blank">PythonAnywhere</a> free service. So you can go and try my site on <a href="https://55kalina55.pythonanywhere.com/" target="_blank">this link</a>.
+I deployed this Django project in the <a href="https://www.pythonanywhere.com/">PythonAnywhere</a> free service. So you can go and try my site on <a href="https://55kalina55.pythonanywhere.com/">this link</a>.
 
 ## Features
 
