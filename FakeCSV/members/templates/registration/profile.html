@@ -84,9 +84,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <h4>Change to:</h4>
-          <input name="picture" type="file" name="picture" accept="image/*" id="id_picture">
-          <div id="imagePreview"></div>
+          <div class="row align-items-center justify-content-start">
+            <label for="picture" class="col-4 col-form-label col-form-label-lg text-end"><strong>Change to:</strong></label>
+            <div class="col-4">
+              <div id="imagePreview"></div>
+              <input name="picture" type="file" name="picture" accept="image/*" id="id_picture">
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
