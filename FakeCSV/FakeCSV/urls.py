@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('CSV_converter.urls')),
+    path('', include('CSV_converter.urls'), name="main"),
     path('members/', include('django.contrib.auth.urls')),
     path('members/', include('members.urls')),
 ]
