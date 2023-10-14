@@ -1,3 +1,7 @@
+Pipfile
+Pipfile.lock
+
 Users.txt
+
 FakeCSV/db.sqlite3
 FakeCSV/media/
