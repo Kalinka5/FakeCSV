@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.conf import settings
 from django.views import View
 from django.shortcuts import get_object_or_404
@@ -78,6 +78,8 @@ class DataSchemasView(View):
                 return JsonResponse({'success': True})
             except Schema.DoesNotExist:
                 return JsonResponse({'success': False, 'error': 'Schema not found.'})
+        else:
+            return HttpResponseBadRequest("Invalid request")
 
 
 class NewSchemaView(View):
