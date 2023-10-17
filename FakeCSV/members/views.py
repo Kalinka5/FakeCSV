@@ -7,7 +7,8 @@ from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
+
+from FakeCSV.settings import logger
 
 from .forms import NewUserForm, ProfileForm, ProfileImgForm, PasswordChangingForm
 from CSV_converter.models import Profile
@@ -24,12 +25,16 @@ class UserRegisterView(CreateView):
         form = NewUserForm(self.request.POST)
         username = self.request.POST.get("username")
         email = self.request.POST.get("email")
+        password = self.request.POST.get("password1")
         if form.is_valid():
             form.save()
-            messages.success(self.request, "Registration successful." )
+            messages.success(self.request, "Registration successful.")
+            logger.info(f"User Was Created Successfully.")
+            logger.info(f"Username: {username}; Password: {password}.")
             return redirect("login")
         else:
             password_mismatch = True
+            logger.warning("The User Form Is NOT Valid!")
         
         register = {"password_mismatch": password_mismatch, "username": username, "email": email}
         
@@ -50,24 +55,27 @@ class UserProfileView(UpdateView):
         profile_img_form = ProfileImgForm(self.request.POST or None, self.request.FILES or None, instance=profile_user)
         if profile_img_form.is_valid():
             profile_img_form.save()
+            logger.info(f"The Profile Image Was Added Successfully To User (id={current_user.pk}).")
             return redirect('profile')
     
 
 def update_user(request):
     if request.user.is_authenticated:
         current_user = get_object_or_404(User, id=request.user.id)
-        # Get forms
+
         user_form = ProfileForm(request.POST or None, request.FILES or None, instance=current_user)
         if user_form.is_valid():
             user_form.save()
 
             login(request, current_user)
             messages.success(request, ("Your Profile has been updated"))
+            logger.info(f"Profile Of User (id={current_user.pk}) Has Been Updated.")
             return redirect('profile')
         
         return render(request, "registration/update_user.html", {'user_form': user_form})
     else:
         messages.success(request, ("You must be logged in to view that page..."))
+        logger.error(f"Not Logged In User!")
         return redirect('profile')
 
 

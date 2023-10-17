@@ -14,6 +14,8 @@ import csv
 from .forms import SchemaForm
 from .models import Schema, Column, IntegerColumn, File
 
+from FakeCSV.settings import logger
+
 
 def get_email(faker):
     first_name = faker.first_name()
@@ -46,13 +48,15 @@ def delete_files(prefix):
     folder_path = "media"
     files = os.listdir(folder_path)
 
+    logger.info(f"Trying to remove all CSV files of \"{prefix}\" schema.")
     for file in files:
         file_path = os.path.join(folder_path, file)
         if os.path.isfile(file_path) and file.startswith(prefix) and len(file) > len(prefix) and file[len(prefix)].isdigit():
             try:
                 os.remove(file_path)
+                logger.info(f"The \"{file}\" file was deleted successfully.")
             except OSError as e:
-                print(f"Error deleting {file_path}: {e}")
+                logger.error(f"Error deleting {file_path}: {e}")
 
 
 def home(request):
@@ -102,7 +106,8 @@ class NewSchemaView(View):
             
             for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
                 if column_type == "4":
-                    IntegerColumn.objects.create(
+                    logger.info(f"{column_name}: [(type - {column_type}) (order - {column_order}) (from {integer_from} to {integer_to})]")
+                    integer_column = IntegerColumn.objects.create(
                         name=column_name,
                         type=column_type,
                         order=column_order,
@@ -110,15 +115,19 @@ class NewSchemaView(View):
                         range_low=integer_from,
                         range_high=integer_to
                     )
+                    logger.info(f"Integer Column {column_name} (id={integer_column.pk}) was created successfully.")
                 else:
-                    Column.objects.create(
+                    logger.info(f"{column_name}: [(type - {column_type}), (order - {column_order})]")
+                    column = Column.objects.create(
                         name=column_name,
                         type=column_type,
                         order=column_order,
                         schema=schema
                     )
+                    logger.info(f"Column {column_name} (id={column.pk}) was created successfully.")
             
             messages.success(self.request, "The schema was created successfully.")
+            logger.info(f"The schema (id={schema.pk}) was created successfully.")
             return redirect(f"/data-sets/{schema.schema_name}/")
 
 
@@ -129,10 +138,12 @@ class DataSetsView(View):
     def get(self, *args, **kwargs):
         name = kwargs.get('name')
         if name:
+            logger.info("Show created columns and files.")
             schema = get_object_or_404(Schema, schema_name=name)
             columns = schema.column_set.all()
             files = schema.file_set.all()
         else:
+            logger.info("Show empty columns and files.")
             columns = ''
             files = ''
         schema_dict = {"schema_name": schema.schema_name, "columns": columns, "files": files}
@@ -141,43 +152,44 @@ class DataSetsView(View):
 
     def post(self, *args, **kwargs):
         name = kwargs.get('name')
-        if self.request.method == "POST":
-            schema = get_object_or_404(Schema, schema_name=name)
-            schema_name = schema.schema_name
-            schema_delimeter = schema.column_separator
-            schema_character = schema.string_character
+        
+        schema = get_object_or_404(Schema, schema_name=name)
+        schema_name = schema.schema_name
+        schema_delimeter = schema.column_separator
+        schema_character = schema.string_character
 
-            n = 1
-            while True:
-                filename = f'{schema_name}{n}.csv'
-                if not File.objects.filter(name=filename).exists():
-                    file = File.objects.create(name=filename, schema=schema)
-                    break
+        n = 1
+        while True:
+            filename = f'{schema_name}{n}.csv'
+            if not File.objects.filter(name=filename).exists():
+                file = File.objects.create(name=filename, schema=schema)
+                break
 
-                n += 1
-                
-            file_path = os.path.join(settings.MEDIA_ROOT, filename)
-            rows = int(self.request.POST.get("rows"))
+            n += 1
+        logger.info(f"Created new filename - {filename}.")
 
-            columns = schema.column_set.all().order_by('order')
+        file_path = os.path.join(settings.MEDIA_ROOT, filename)
+        rows = int(self.request.POST.get("rows"))
 
-            # Set "flat=True" to flatten the resulting list of values into a one-dimensional list.
-            column_names = columns.values_list('name', flat=True)
+        columns = schema.column_set.all().order_by('order')
 
-            with open(file_path, 'w', newline='') as csvfile:
-                writer = csv.writer(csvfile, delimiter=schema_delimeter, quotechar=schema_character)
-                writer.writerow(column_names)
-                for _ in range(1, rows):
-                    writer.writerow(generate_fake_data(columns, self.fake))
+        # Set "flat=True" to flatten the resulting list of values into a one-dimensional list.
+        column_names = columns.values_list('name', flat=True)
 
-            new_file_data = {
-                'date': file.date,
-                'name': file.name,
-            }
+        logger.info(f"Starting creation a {filename} file...")
+        with open(file_path, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile, delimiter=schema_delimeter, quotechar=schema_character)
+            writer.writerow(column_names)
+            for _ in range(1, rows):
+                writer.writerow(generate_fake_data(columns, self.fake))
+        logger.info(f"File {filename} was created successfully.")
 
-            return JsonResponse(new_file_data)
+        new_file_data = {
+            'date': file.date,
+            'name': file.name,
+        }
 
-        return JsonResponse({"error": ""}, status=400)
+        return JsonResponse(new_file_data)
 
 
 class EditSchemaView(View):
@@ -202,13 +214,17 @@ class EditSchemaView(View):
             character = self.request.POST.get("character")
 
             schema = get_object_or_404(Schema, schema_name=name)
+            logger.info(f"Editing Schema (id={schema.pk})...")
             schema.schema_name = schema_name
             schema.column_separator = separator
             schema.string_character = character
+            logger.info(f"New Values: {schema_name} [(separator - \"{separator}\"), (character - {character})]")
             schema.save()
+            logger.info(f"Schema (id={schema.pk}) was edited successfully.")
             
             # Delete existing columns
             schema.column_set.all().delete()
+            logger.info(f"All columns of Schema (id={schema.pk}) was deleted successfully.")
 
             column_name_list = self.request.POST.getlist("column_name")
             column_type_list = self.request.POST.getlist("type")
@@ -218,7 +234,8 @@ class EditSchemaView(View):
             zip_lists = zip(column_name_list, column_type_list, column_order_list, integer_from_list, integer_to_list)
             for column_name, column_type, column_order, integer_from, integer_to, in zip_lists:
                 if column_type == "4":
-                    IntegerColumn.objects.create(
+                    logger.info(f"{column_name}: [(type - {column_type}) (order - {column_order}) (from {integer_from} to {integer_to})]")
+                    integer_column = IntegerColumn.objects.create(
                         name=column_name,
                         type=column_type,
                         order=column_order,
@@ -226,12 +243,15 @@ class EditSchemaView(View):
                         range_low=integer_from,
                         range_high=integer_to
                     )
+                    logger.info(f"Integer Column (id={integer_column.pk}) was created successfully.")
                 else:
-                    Column.objects.create(
+                    logger.info(f"{column_name}: [(type - {column_type}) (order - {column_order})]")
+                    column = Column.objects.create(
                         name=column_name,
                         type=column_type,
                         order=column_order,
                         schema=schema
                     )
+                    logger.info(f"Column (id={column.pk}) was created successfully.")
                 
             return redirect(f"/data-sets/{schema.schema_name}/")
