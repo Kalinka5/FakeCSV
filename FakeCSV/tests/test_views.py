@@ -1,6 +1,5 @@
-from django.test import TestCase, RequestFactory
+from django.test import Client, TestCase
 from django.contrib.auth.models import User
-from django.test import Client
 from django.urls import reverse
 from django.http import JsonResponse
 
@@ -8,7 +7,6 @@ from CSV_converter.models import Schema, Column
 
 class ViewTests(TestCase):
     def setUp(self):
-        self.factory = RequestFactory()
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
         self.client = Client()
